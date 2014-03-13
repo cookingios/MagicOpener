@@ -1,0 +1,88 @@
+PODS:
+  - Bolts (1.0.0)
+  - BZGFormField (1.1.2)
+  - DropdownMenu (1.0.0)
+  - Facebook-iOS-SDK (3.12.0)
+  - HexColors (2.2.1)
+  - JSAnimatedImagesView (1.0.0):
+    - MSWeakTimer (~> 1.0)
+  - MBProgressHUD (0.8)
+  - MRProgress (0.4.1):
+    - MRProgress/ActivityIndicator
+    - MRProgress/Blur
+    - MRProgress/Circular
+    - MRProgress/Helper
+    - MRProgress/Icons
+    - MRProgress/MessageInterceptor
+    - MRProgress/NavigationBarProgress
+    - MRProgress/Overlay
+    - MRProgress/Stopable
+    - MRProgress/WeakProxy
+  - MRProgress/ActivityIndicator (0.4.1):
+    - MRProgress/Stopable
+  - MRProgress/Blur (0.4.1):
+    - MRProgress/Helper
+  - MRProgress/Circular (0.4.1):
+    - MRProgress/Helper
+    - MRProgress/Stopable
+  - MRProgress/Helper (0.4.1)
+  - MRProgress/Icons (0.4.1)
+  - MRProgress/MessageInterceptor (0.4.1)
+  - MRProgress/NavigationBarProgress (0.4.1):
+    - MRProgress/MessageInterceptor
+  - MRProgress/Overlay (0.4.1):
+    - MRProgress/ActivityIndicator
+    - MRProgress/Blur
+    - MRProgress/Circular
+    - MRProgress/Helper
+    - MRProgress/Icons
+  - MRProgress/Stopable (0.4.1):
+    - MRProgress/Helper
+  - MRProgress/WeakProxy (0.4.1)
+  - MSWeakTimer (1.1.0)
+  - Parse-iOS-SDK (1.2.18):
+    - Facebook-iOS-SDK (~> 3.7)
+  - RESideMenu (3.4)
+  - RNFrostedSidebar (0.2.0)
+  - RNGridMenu (0.1.3)
+  - SDWebImage (3.5.4):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.5.4)
+  - SwipeView (1.3)
+  - TSMessages (0.9.6):
+    - HexColors
+
+DEPENDENCIES:
+  - Bolts
+  - BZGFormField
+  - DropdownMenu
+  - JSAnimatedImagesView
+  - MBProgressHUD
+  - MRProgress (~> 0.3)
+  - Parse-iOS-SDK
+  - RESideMenu (~> 3.4)
+  - RNFrostedSidebar
+  - RNGridMenu
+  - SDWebImage
+  - SwipeView
+  - TSMessages
+
+SPEC CHECKSUMS:
+  Bolts: 45bceb8be6243d242caf74308563bba02c2af2a3
+  BZGFormField: 724478d1e795458c93ec166730386caa85752454
+  DropdownMenu: 3c454205c2db1fd39dc1ebf099114c4fdb73f136
+  Facebook-iOS-SDK: c09f7d80db5c48170ff834bc03ebe774c49d1f5b
+  HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
+  JSAnimatedImagesView: dd5c59494832864434aa9e4312e8d46e2b6012d9
+  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
+  MRProgress: 6530ce71278dd7ecfb5e3c3e37df03a323690936
+  MSWeakTimer: 2cd8d15b58e634517e83a7e433782faa8214a27f
+  Parse-iOS-SDK: 48bfd538a107b6e1f29eebe59fa80c0f0b844dd1
+  RESideMenu: d8d6330052e0348718826045b912a1c71748357d
+  RNFrostedSidebar: 36339438a07088fd3ee3926db03af499477ee048
+  RNGridMenu: 8aed69538abb8280f496a88fb24e0cf7dd180caf
+  SDWebImage: 1a62010700adbba823b621fc217906739dbf6aa5
+  SwipeView: 9533067753d80f15049f70cf903ef7980f79acf2
+  TSMessages: 839edc3164b99ced48c30af9dde9710cd67bea4d
+
+COCOAPODS: 0.29.0
