@@ -825,8 +825,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhang wenlin (2E3KHHX4C5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: zhang wenlin (2E3KHHX4C5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -842,7 +842,7 @@
 					"$(SRCROOT)/JingFM-RoundEffect/libWeiboSDK",
 				);
 				PRODUCT_NAME = "约会助手";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9A399E7C-6FD9-4766-8E34-35C0886A25FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -853,8 +853,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhang wenlin (2E3KHHX4C5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: zhang wenlin (2E3KHHX4C5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -870,7 +870,7 @@
 					"$(SRCROOT)/JingFM-RoundEffect/libWeiboSDK",
 				);
 				PRODUCT_NAME = "约会助手";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9A399E7C-6FD9-4766-8E34-35C0886A25FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

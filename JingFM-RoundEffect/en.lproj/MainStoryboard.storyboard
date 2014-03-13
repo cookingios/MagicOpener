@@ -107,7 +107,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="I9s-1w-oH3" customClass="SwipeView">
-                                <rect key="frame" x="0.0" y="235" width="320" height="228"/>
+                                <rect key="frame" x="0.0" y="237" width="320" height="228"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -127,6 +127,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开场力度" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="31D-VD-4wA">
+                                <rect key="frame" x="130" y="214" width="61" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.91353175949999998" green="0.91353175949999998" blue="0.91353175949999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.19222530239999999" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0star" id="Ofo-ff-ahw">
+                                <rect key="frame" x="135" y="237" width="50" height="10"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -140,6 +152,8 @@
                     <connections>
                         <outlet property="avatarImageView" destination="Fvb-wf-Sla" id="rmL-OW-k0b"/>
                         <outlet property="hintLabel" destination="ZKf-yH-20J" id="sLl-BP-R7x"/>
+                        <outlet property="starDecorateLabel" destination="31D-VD-4wA" id="hIS-hO-l0s"/>
+                        <outlet property="starImageView" destination="Ofo-ff-ahw" id="PzQ-gd-cJV"/>
                         <outlet property="swipeView" destination="I9s-1w-oH3" id="RAe-l9-lbw"/>
                         <segue destination="GNp-I6-2k6" kind="modal" identifier="WelcomeSegue" animates="NO" id="SFQ-Xa-zDv"/>
                     </connections>

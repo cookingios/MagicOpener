@@ -41,6 +41,37 @@
 	
 }
 
++ (NSString *)getImageNameByRate:(NSNumber *)rate {
+    
+    NSString *string = @"";
+    if (rate) {
+        switch ([rate intValue]) {
+            case 1:
+                string = @"1star";
+                break;
+            case 2:
+                string = @"2star";
+                break;
+            case 3:
+                string = @"3star";
+                break;
+            case 4:
+                string = @"4star";
+                break;
+            case 5:
+                string = @"5star";
+                break;
+                
+            default:
+                break;
+        }
+    }else{
+        string = @"0star";
+    }
+    
+    return string;
+}
+
 + (BFTask *)findAsync:(PFQuery *)query{
     BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -56,4 +87,6 @@
     
     return task.task;
 }
+
+
 @end

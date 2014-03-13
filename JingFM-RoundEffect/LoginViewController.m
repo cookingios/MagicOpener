@@ -64,7 +64,7 @@
     self.emailTextField.textField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailTextField.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     __weak LoginViewController *weakSelf = self;
-    [self.emailTextField setTextValidationBlock:^BOOL(NSString *text) {
+    [self.emailTextField setTextValidationBlock:^BOOL(BZGFormField *field,NSString *text) {
         NSString *trimText = [MOUtility trimString:text];
         // from https://github.com/benmcredmond/DHValidation/blob/master/DHValidation.m
         NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
@@ -78,7 +78,7 @@
     }];
     
     //emailTextField Add online validation
-    [self.emailTextField setAsyncTextValidationBlock:^BOOL(NSString *text) {
+    [self.emailTextField setAsyncTextValidationBlock:^BOOL(BZGFormField *field,NSString *text) {
         NSString *trimText = [MOUtility trimString:text];
         PFQuery *query = [PFUser query];
         [query whereKey:@"username" equalTo:trimText];
@@ -95,7 +95,7 @@
     self.passwordTextField.textField.placeholder = @"密码";
     self.passwordTextField.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passwordTextField.textField.secureTextEntry = YES;
-    [self.passwordTextField setTextValidationBlock:^BOOL(NSString *text) {
+    [self.passwordTextField setTextValidationBlock:^BOOL(BZGFormField *field,NSString *text) {
         NSString *trimText = [MOUtility trimString:text];
         if (trimText.length < 6) {
             weakSelf.passwordTextField.alertView.title = @"密码有点短";

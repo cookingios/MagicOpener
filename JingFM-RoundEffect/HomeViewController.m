@@ -17,6 +17,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet SwipeView *swipeView;
 @property (weak, nonatomic) IBOutlet UILabel *hintLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *starImageView;
+@property (weak, nonatomic) IBOutlet UILabel *starDecorateLabel;
+
+
 @property (strong,nonatomic) NSArray *dataSource;
 @property (strong,nonatomic) NSNumber *life;
 @property (nonatomic) BOOL isFreeChanceUsing;
@@ -196,6 +200,9 @@
 - (void)getOpeners{
     
     self.swipeView.hidden = YES;
+    self.starDecorateLabel.hidden = YES;
+    self.starImageView.hidden = YES;
+    [self.swipeView setCurrentItemIndex:99];
     _isFreeChanceUsing = NO;
     
     PFQuery *queryLow = [PFQuery queryWithClassName:@"Opener"];
@@ -253,6 +260,11 @@
         self.swipeView.hidden = NO;
         self.hintLabel.text = @"马上选一条开始搭讪吧";
         [self.swipeView scrollToItemAtIndex:0 duration:0];
+        PFObject *currentObject = self.dataSource[0];
+        NSString *starImageName = [MOUtility getImageNameByRate:[currentObject objectForKey:@"rate"]];
+        _starImageView.image = [UIImage imageNamed:starImageName];
+        self.starDecorateLabel.hidden = NO;
+        self.starImageView.hidden = NO;
         return nil;
     }];
     
@@ -294,4 +306,14 @@
     return view;
 }
 
+- (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView{
+    
+    if ([self.dataSource[0] isKindOfClass:[PFObject class]]) {
+        PFObject *currentObject = self.dataSource[swipeView.currentItemIndex];
+        NSString *starImageName = [MOUtility getImageNameByRate:[currentObject objectForKey:@"rate"]];
+        _starImageView.image = [UIImage imageNamed:starImageName];
+    }
+
+    
+}
 @end

@@ -20,6 +20,9 @@
 //去除字符串空格
 + (NSString *)trimString:(NSString *)imputText;
 
+//获取星星图片名称
++ (NSString *)getImageNameByRate:(NSNumber *)rate;
+
 //Bolts
 + (BFTask *)findAsync:(PFQuery *)query;
 

@@ -206,7 +206,6 @@
 */
 
 -(void)showStar:(NSNumber *)starCounts{
-    
     if (starCounts) {
         switch ([starCounts intValue]) {
             case 1:
@@ -228,15 +227,9 @@
             default:
                 break;
         }
-        
-        
     }else{
-        
          _starImageView.image =[UIImage imageNamed:@"0star"];
-        
     }
-    
-    
 }
 
 #pragma mark - 菜单 DataSource & delegate
