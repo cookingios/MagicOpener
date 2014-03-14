@@ -23,6 +23,9 @@
 //获取星星图片名称
 + (NSString *)getImageNameByRate:(NSNumber *)rate;
 
+//根据图像识别结果,返回提示内容
++ (NSString *)getHintFromResult:(NSDictionary *)result;
+
 //Bolts
 + (BFTask *)findAsync:(PFQuery *)query;
 

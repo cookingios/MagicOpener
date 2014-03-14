@@ -72,6 +72,22 @@
     return string;
 }
 
+
++ (NSString *)getHintFromResult:(NSDictionary *)result{
+    
+    NSString *hint = @"解析错误";
+    NSArray *faces = result[@"face"];
+    if ([faces count]==0) {
+        return @"没有发现人类";
+    }
+    
+    if ([faces count] > 1) {
+        return @"不允许3p或以上";
+    }
+    
+    return hint;
+}
+
 + (BFTask *)findAsync:(PFQuery *)query{
     BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

@@ -1,7 +1,7 @@
 PODS:
   - Bolts (1.0.0)
   - BZGFormField (1.1.2)
-  - DropdownMenu (1.0.0)
+  - FaceAwareFill (1.0)
   - Facebook-iOS-SDK (3.12.0)
   - HexColors (2.2.1)
   - JSAnimatedImagesView (1.0.0):
@@ -55,7 +55,7 @@ PODS:
 DEPENDENCIES:
   - Bolts
   - BZGFormField
-  - DropdownMenu
+  - FaceAwareFill
   - JSAnimatedImagesView
   - MBProgressHUD
   - MRProgress (~> 0.3)
@@ -70,7 +70,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Bolts: 45bceb8be6243d242caf74308563bba02c2af2a3
   BZGFormField: 724478d1e795458c93ec166730386caa85752454
-  DropdownMenu: 3c454205c2db1fd39dc1ebf099114c4fdb73f136
+  FaceAwareFill: f23c221f9e81f193dd0a870d5cf9ad719e111db4
   Facebook-iOS-SDK: c09f7d80db5c48170ff834bc03ebe774c49d1f5b
   HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
   JSAnimatedImagesView: dd5c59494832864434aa9e4312e8d46e2b6012d9

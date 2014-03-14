@@ -10,6 +10,8 @@
 #import "OpenerView.h"
 #import <MBProgressHUD.h>
 #import <RESideMenu.h>
+#import <UIImageView+UIImageView_FaceAwareFill.h>
+#import "FaceppAPI.h"
 
 @interface HomeViewController (){
     MBProgressHUD *hud;
@@ -164,7 +166,7 @@
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         [picker setDelegate:self];
-        [picker setAllowsEditing:YES];
+        [picker setAllowsEditing:NO];
         [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
         [self presentViewController:picker animated:YES completion:nil];
     } else {
@@ -176,7 +178,7 @@
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         [picker setDelegate:self];
-        [picker setAllowsEditing:YES];
+        [picker setAllowsEditing:NO];
         [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
         [self presentViewController:picker animated:YES completion:nil];
     } else {
@@ -186,15 +188,34 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    NSData *imgData = UIImageJPEGRepresentation([info objectForKey:UIImagePickerControllerEditedImage], 0.5f);
+    NSData *imgData = UIImageJPEGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage], 0.5f);
     
     [self.avatarImageView setImage:[UIImage imageWithData:imgData]];
-    //PFFile *eventImage = [PFFile fileWithData:imgData];
-    
+    [self.avatarImageView faceAwareFill];
+    //检测人脸
+    [self performSelectorInBackground:@selector(detectWithImage:) withObject:[UIImage imageWithData:imgData]];
     [picker dismissViewControllerAnimated:YES completion:nil];
     self.hintLabel.text = @"分析照片中...";
     //TODO:待添加验证逻辑
-    [self getOpeners];
+    //[self getOpeners];
+}
+
+- (void)detectWithImage:(UIImage *)image{
+    
+    FaceppResult *result = [[FaceppAPI detection] detectWithURL:nil orImageData:UIImageJPEGRepresentation(image, 1) mode:FaceppDetectionModeNormal attribute:FaceppDetectionAttributeNone];
+    
+    NSString *hintContent = @"";
+    if (result.success) {
+        
+        hintContent = [MOUtility getHintFromResult:[result content]];
+        
+    }else{
+        
+        hintContent = @"网络连接错误";
+    }
+    
+    [self performSelectorOnMainThread:@selector(setHint:) withObject:hintContent waitUntilDone:YES];
+    
 }
 
 - (void)getOpeners{
@@ -313,7 +334,11 @@
         NSString *starImageName = [MOUtility getImageNameByRate:[currentObject objectForKey:@"rate"]];
         _starImageView.image = [UIImage imageNamed:starImageName];
     }
+}
 
+- (void)setHint:(NSString *)content{
+    
+    self.hintLabel.text = content;
     
 }
 @end

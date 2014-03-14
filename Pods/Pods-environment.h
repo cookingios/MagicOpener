@@ -18,11 +18,11 @@
 #define COCOAPODS_VERSION_MINOR_Bolts 0
 #define COCOAPODS_VERSION_PATCH_Bolts 0
 
-// DropdownMenu
-#define COCOAPODS_POD_AVAILABLE_DropdownMenu
-#define COCOAPODS_VERSION_MAJOR_DropdownMenu 1
-#define COCOAPODS_VERSION_MINOR_DropdownMenu 0
-#define COCOAPODS_VERSION_PATCH_DropdownMenu 0
+// FaceAwareFill
+#define COCOAPODS_POD_AVAILABLE_FaceAwareFill
+#define COCOAPODS_VERSION_MAJOR_FaceAwareFill 1
+#define COCOAPODS_VERSION_MINOR_FaceAwareFill 0
+#define COCOAPODS_VERSION_PATCH_FaceAwareFill 0
 
 // Facebook-iOS-SDK
 #define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK
