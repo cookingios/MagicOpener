@@ -27,7 +27,7 @@
 // Facebook-iOS-SDK
 #define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK
 #define COCOAPODS_VERSION_MAJOR_Facebook_iOS_SDK 3
-#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 12
+#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 13
 #define COCOAPODS_VERSION_PATCH_Facebook_iOS_SDK 0
 
 // HexColors
@@ -143,6 +143,12 @@
 #define COCOAPODS_VERSION_MAJOR_RNGridMenu 0
 #define COCOAPODS_VERSION_MINOR_RNGridMenu 1
 #define COCOAPODS_VERSION_PATCH_RNGridMenu 3
+
+// RPFloatingPlaceholders
+#define COCOAPODS_POD_AVAILABLE_RPFloatingPlaceholders
+#define COCOAPODS_VERSION_MAJOR_RPFloatingPlaceholders 0
+#define COCOAPODS_VERSION_MINOR_RPFloatingPlaceholders 2
+#define COCOAPODS_VERSION_PATCH_RPFloatingPlaceholders 5
 
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage

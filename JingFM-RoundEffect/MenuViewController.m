@@ -94,8 +94,7 @@
             [self.sideMenuViewController hideMenuViewController];
             break;
         case 1:
-            [dvc setValue:@"lost" forKey:@"eventType"];
-            navigationController.viewControllers = @[dvc];
+            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"SelectMyExpertViewController"]];
             [self.sideMenuViewController hideMenuViewController];
             break;
         case 2:

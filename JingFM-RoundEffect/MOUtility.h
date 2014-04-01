@@ -26,6 +26,9 @@
 //根据图像识别结果,返回提示内容
 + (NSString *)getHintFromResult:(NSDictionary *)result;
 
+//返回图像
++ (UIImage *)fixOrientation:(UIImage *)aImage;
+
 //Bolts
 + (BFTask *)findAsync:(PFQuery *)query;
 

@@ -188,26 +188,46 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    NSData *imgData = UIImageJPEGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage], 0.5f);
+    //NSData *imgData = UIImageJPEGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage], 0.2f);
     
-    [self.avatarImageView setImage:[UIImage imageWithData:imgData]];
+    UIImage *sourceImage = info[UIImagePickerControllerOriginalImage];
+    UIImage *imageToDisplay = [MOUtility fixOrientation:sourceImage];
+    NSData *imgData = UIImageJPEGRepresentation(imageToDisplay, 0.2f);
+    [self.avatarImageView setImage:sourceImage];
     [self.avatarImageView faceAwareFill];
     //检测人脸
-    [self performSelectorInBackground:@selector(detectWithImage:) withObject:[UIImage imageWithData:imgData]];
+    [self performSelectorInBackground:@selector(detectWithImageData:) withObject:imgData];
     [picker dismissViewControllerAnimated:YES completion:nil];
+    //初始化页面
     self.hintLabel.text = @"分析照片中...";
-    //TODO:待添加验证逻辑
-    //[self getOpeners];
+    self.swipeView.hidden = YES;
+    self.starDecorateLabel.hidden = YES;
+    self.starImageView.hidden = YES;
+    _isFreeChanceUsing = NO;
+ 
 }
 
-- (void)detectWithImage:(UIImage *)image{
+- (void)detectWithImageData:(NSData *)imageData{
     
-    FaceppResult *result = [[FaceppAPI detection] detectWithURL:nil orImageData:UIImageJPEGRepresentation(image, 1) mode:FaceppDetectionModeNormal attribute:FaceppDetectionAttributeNone];
+    FaceppResult *result = [[FaceppAPI detection] detectWithURL:nil orImageData:imageData mode:FaceppDetectionModeNormal attribute:FaceppDetectionAttributeGender];
     
     NSString *hintContent = @"";
     if (result.success) {
         
         hintContent = [MOUtility getHintFromResult:[result content]];
+        
+        
+        if ([hintContent isEqualToString:@"正在下载开场白"]) {
+            
+            NSDictionary *eyeleft = [result content][@"face"][0][@"position"][@"eye_left"];
+            NSDictionary *mouthright = [result content][@"face"][0][@"position"][@"mouth_right"];
+            NSInteger *random = (NSInteger *)([eyeleft[@"x"] intValue]*
+                                [eyeleft[@"y"] intValue]*
+                                [mouthright[@"x"] intValue]*
+                                [mouthright[@"y"] intValue]);
+            NSLog(@"random is %ld",(long)random);
+            [self getOpenersWithRandomNumber:random];
+        }
         
     }else{
         
@@ -218,30 +238,24 @@
     
 }
 
-- (void)getOpeners{
-    
-    self.swipeView.hidden = YES;
-    self.starDecorateLabel.hidden = YES;
-    self.starImageView.hidden = YES;
-    [self.swipeView setCurrentItemIndex:99];
-    _isFreeChanceUsing = NO;
+- (void)getOpenersWithRandomNumber:(NSInteger *)random {
     
     PFQuery *queryLow = [PFQuery queryWithClassName:@"Opener"];
     [queryLow whereKey:@"rate" lessThan:@4];
     [queryLow whereKey:@"scene" equalTo:@"sns"];
-    queryLow.skip = arc4random()%61;
+    queryLow.skip = (int)random %61;
     queryLow.limit = 1;
     
     PFQuery *queryMedium = [PFQuery queryWithClassName:@"Opener"];
     [queryMedium whereKey:@"rate" equalTo:@4];
     [queryMedium whereKey:@"scene" equalTo:@"sns"];
-    queryMedium.skip = arc4random()%24;
+    queryMedium.skip = (int)random %24;
     queryMedium.limit = 1;
     
     PFQuery *queryHigh = [PFQuery queryWithClassName:@"Opener"];
     [queryHigh whereKey:@"rate" equalTo:@5];
     [queryHigh whereKey:@"scene" equalTo:@"sns"];
-    queryHigh.skip = arc4random()%33;
+    queryHigh.skip = (int)random %33;
     queryHigh.limit = 1;
     
     NSMutableArray *ds = [NSMutableArray array];
