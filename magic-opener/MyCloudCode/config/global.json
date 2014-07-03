@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "_default": {
+            "link": "\u7ea6\u4f1a\u52a9\u624b"
+        }, 
+        "\u7ea6\u4f1a\u52a9\u624b": {
+            "applicationId": "uVNIxVLBvUWvVtLaFhMquaYZR2Tqje84YwcQ63i6", 
+            "masterKey": "ZBG9zOZeOCHVkcjMSF5uYNGxP6jkh21cTbeeEbsp"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.18"
+    }
+}

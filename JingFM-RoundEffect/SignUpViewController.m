@@ -43,13 +43,19 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    self.isEditing = NO;
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"SignUp"];
+    
     [TSMessage setDefaultViewController:self.navigationController];
-    self.backgroundScrollView.contentSize = CGSizeMake(320, 520);
     [self.navigationController setNavigationBarHidden:NO];
+    self.isEditing = NO;
+    self.backgroundScrollView.contentSize = CGSizeMake(320, 520);
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"SignUp"];
     
     [TSMessage dismissActiveNotification];
 }
@@ -75,6 +81,8 @@
     self.emailTextField.textField.placeholder = @"注册邮箱";
     self.emailTextField.textField.keyboardType = UIKeyboardTypeEmailAddress;
     self.emailTextField.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.emailTextField.textField.returnKeyType = UIReturnKeyNext;
+    self.emailTextField.textField.tag = 180 ;
     __weak SignUpViewController *weakSelf = self;
     [self.emailTextField setTextValidationBlock:^BOOL(BZGFormField *field,NSString *text) {
         NSString *trimText = [MOUtility trimString:text];
@@ -107,6 +115,8 @@
     self.passwordTextField.textField.placeholder = @"设置密码";
     self.passwordTextField.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passwordTextField.textField.secureTextEntry = YES;
+    self.passwordTextField.textField.returnKeyType = UIReturnKeyDone;
+    self.passwordTextField.textField.tag = 240;
     [self.passwordTextField setTextValidationBlock:^BOOL(BZGFormField *field,NSString *text) {
         NSString *trimText = [MOUtility trimString:text];
         if (trimText.length < 8) {
@@ -125,7 +135,7 @@
     if (!self.isEditing) {
         _backgroundScrollView.contentSize = CGSizeMake(320, 680);
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            _backgroundScrollView.contentOffset=CGPointMake(0, 50);
+            _backgroundScrollView.contentOffset=CGPointMake(0, 80);
         } completion:nil];
         
         self.editing = YES;
@@ -140,6 +150,22 @@
     	return YES;
     }
 }
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+
+    switch (textField.tag) {
+        case 180:
+            [self.passwordTextField.textField becomeFirstResponder];
+            break;
+        case 240:
+            [self validateSignUpInfo:textField];
+        default:
+            break;
+    }
+    
+    return YES;
+}
+
 
 #pragma mark - validate signup info
 - (IBAction)validateSignUpInfo:(id)sender {
@@ -173,6 +199,15 @@
             PFInstallation *installation = [PFInstallation currentInstallation];
             [installation setObject:user forKey:@"owner"];
             [installation saveInBackground];
+            
+            [PFCloud callFunctionInBackground:@"addFreeChance"
+                               withParameters:@{}
+                                        block:^(NSNumber *ratings, NSError *error) {
+                                            if (!error) {
+                                                // ratings is 4.5
+                                                NSLog(@"注册成功,增加生命");
+                                            }
+                                        }];
             
             [MRProgressOverlayView dismissAllOverlaysForView:[[self view] window] animated:YES completion:^{
                 [self presentViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"RootViewController"] animated:NO completion:nil];

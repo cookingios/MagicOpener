@@ -36,21 +36,26 @@
 }
 
 - (void)commonInit {
+    self.sizeRatio = 0.3;
+    self.highlightedSizeRatio = 0.9;
+    
     CAShapeLayer *shapeLayer = [CAShapeLayer new];
     [self.layer addSublayer:shapeLayer];
     self.shapeLayer= shapeLayer;
     
     [self addTarget:self action:@selector(didTouchDown) forControlEvents:UIControlEventTouchDown];
     [self addTarget:self action:@selector(didTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self tintColorDidChange];
 }
 
 - (CGRect)frameThatFits:(CGRect)parentBounds {
     CGFloat sizeValue = MIN(parentBounds.size.width, parentBounds.size.height);
     CGSize viewSize = CGSizeMake(sizeValue, sizeValue);
-    const CGFloat sizeRatio = 0.35;
+    const CGFloat insetSizeRatio = (1 - self.sizeRatio) / 2.0;
     return CGRectInset(MRCenterCGSizeInCGRect(viewSize, parentBounds),
-                       sizeValue * sizeRatio,
-                       sizeValue * sizeRatio);
+                       sizeValue * insetSizeRatio,
+                       sizeValue * insetSizeRatio);
 }
 
 - (void)layoutSubviews {
@@ -58,8 +63,8 @@
     
     CGRect frame = self.bounds;
     
-    if (self.tracking && self.touchInside) {
-        const CGFloat insetSizeRatio = 0.033;
+    if (self.tracking && self .touchInside) {
+        const CGFloat insetSizeRatio = (1 - self.highlightedSizeRatio) / 2.0;
         frame = CGRectInset(frame,
                             frame.size.width * insetSizeRatio,
                             frame.size.height * insetSizeRatio);

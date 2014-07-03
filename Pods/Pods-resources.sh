@@ -41,6 +41,7 @@ install_resource()
       ;;
   esac
 }
+install_resource "ASMediaFocusManager/ASMediaFocusManager/ASMediaFocusController.xib"
 install_resource "Facebook-iOS-SDK/src/FBUserSettingsViewResources.bundle"
 install_resource "TSMessages/TSMessages/Resources/Images/NotificationBackgroundError.png"
 install_resource "TSMessages/TSMessages/Resources/Images/NotificationBackgroundError@2x.png"

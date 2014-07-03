@@ -13,6 +13,7 @@
 #import <UIImageView+UIImageView_FaceAwareFill.h>
 #import "FaceppAPI.h"
 
+
 @interface HomeViewController (){
     MBProgressHUD *hud;
 }
@@ -21,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *hintLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *starImageView;
 @property (weak, nonatomic) IBOutlet UILabel *starDecorateLabel;
+@property (weak, nonatomic) IBOutlet UIButton *duplicateButton;
 
 
 @property (strong,nonatomic) NSArray *dataSource;
@@ -30,6 +32,8 @@
 - (IBAction)showMenu:(id)sender;
 - (IBAction)freeLookUp:(id)sender;
 - (IBAction)buy1YearProVersion:(id)sender;
+- (IBAction)switchOpenerMode:(id)sender;
+- (IBAction)duplicateOpener:(id)sender;
 
 
 @end
@@ -58,18 +62,30 @@
     _swipeView.itemsPerPage = 1;
     _swipeView.truncateFinalPage = YES;
     _isFreeChanceUsing = NO;
+    
+    self.duplicateButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"Opener"];
     
     if (![PFUser currentUser]) {
         [self performSegueWithIdentifier:@"WelcomeSegue" sender:self];
     }
     [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        NSLog(@"life remain %@",[[PFUser currentUser] objectForKey:@"life"]);
+        NSLog(@"life remain %@",[[PFUser currentUser] objectForKey:@"freeChance"]);
     }];
     self.avatarImageView.layer.cornerRadius = self.avatarImageView.bounds.size.width/2.0;
     self.avatarImageView.layer.masksToBounds = YES;
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"Opener"];
     
 }
 
@@ -113,6 +129,25 @@
     
 }
 
+- (IBAction)switchOpenerMode:(id)sender {
+    
+    [MobClick event:@"SwitchMode"];
+     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"经典模式" message:@"经典模式将不会刷出五星开场白,是否继续?" delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"继续", nil];
+    
+    [alert show];
+    
+    [self performSegueWithIdentifier:@"ClassicModeSegue" sender:self];
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (!buttonIndex) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 #pragma mark - 复制
 - (IBAction)duplicateOpener:(id)sender {
     //复制到黏贴板
@@ -131,11 +166,21 @@
 	[hud show:YES];
 	[hud hide:YES afterDelay:2];
     
+    NSDictionary *dict = @{@"opener":pasteboard.string,@"type":@"picture"};
+    [MobClick event:@"DuplicateOpener" attributes:dict];
+
 }
 
 
 - (void)selectImage{
-    NSString *title = [NSString stringWithFormat:@"本日剩余次数:%@",[[PFUser currentUser] objectForKey:@"life"]];
+    NSString *title = [NSString stringWithFormat:@"剩余次数:%@",[[PFUser currentUser] objectForKey:@"freeChance"]];
+    if ([[[PFUser currentUser] objectForKey:@"freeChance"] isEqualToNumber:@0]) {
+        //alertview 提示
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"本日次数已用完" message:@"每日6次机会,凌晨12时前后更新." delegate:nil cancelButtonTitle:@"好的,我知道了" otherButtonTitles: nil];
+        return [alert show];
+    }else if(![[PFUser currentUser] objectForKey:@"freeChance"]){
+        title = @"剩余次数:获取中";
+    }
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title
                                                              delegate:self
                                                     cancelButtonTitle:@"取消"
@@ -204,6 +249,8 @@
     self.starDecorateLabel.hidden = YES;
     self.starImageView.hidden = YES;
     _isFreeChanceUsing = NO;
+    
+    self.duplicateButton.hidden = YES;
  
 }
 
@@ -240,22 +287,37 @@
 
 - (void)getOpenersWithRandomNumber:(NSInteger *)random {
     
+    //统计
+    NSDictionary *dict = @{@"type":@"picture"};
+    [MobClick event:@"GetOpener" attributes:dict];
+    
+    [[PFUser currentUser] incrementKey:@"freeChance" byAmount:@-1];
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [[PFUser currentUser] refreshInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            NSLog(@"life remain %@",[[PFUser currentUser] objectForKey:@"freeChance"]);
+        }];
+    }];
+    
     PFQuery *queryLow = [PFQuery queryWithClassName:@"Opener"];
-    [queryLow whereKey:@"rate" lessThan:@4];
+    [queryLow whereKey:@"rate" lessThan:@3];
+    [queryLow whereKey:@"available" equalTo:[NSNumber numberWithBool:YES]];
     [queryLow whereKey:@"scene" equalTo:@"sns"];
-    queryLow.skip = (int)random %61;
+    queryLow.skip = (int)random % 25;
     queryLow.limit = 1;
     
     PFQuery *queryMedium = [PFQuery queryWithClassName:@"Opener"];
-    [queryMedium whereKey:@"rate" equalTo:@4];
+    [queryMedium whereKey:@"rate" lessThan:@5];
+    [queryMedium whereKey:@"rate" greaterThan:@2];
+    [queryMedium whereKey:@"available" equalTo:[NSNumber numberWithBool:YES]];
     [queryMedium whereKey:@"scene" equalTo:@"sns"];
-    queryMedium.skip = (int)random %24;
+    queryMedium.skip = (int)random % 44;
     queryMedium.limit = 1;
     
     PFQuery *queryHigh = [PFQuery queryWithClassName:@"Opener"];
     [queryHigh whereKey:@"rate" equalTo:@5];
+    [queryHigh whereKey:@"available" equalTo:[NSNumber numberWithBool:YES]];
     [queryHigh whereKey:@"scene" equalTo:@"sns"];
-    queryHigh.skip = (int)random %33;
+    queryHigh.skip = (int)random % 26;
     queryHigh.limit = 1;
     
     NSMutableArray *ds = [NSMutableArray array];
@@ -277,7 +339,7 @@
         NSLog(@"Mediumlevel opener is %@",[opener objectForKey:@"opener"]);
         
         return [MOUtility findAsync:queryHigh];
-    }]continueWithBlock:^id(BFTask *task) {
+    }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
             NSLog(@"error is %@",task.error);
             return nil;
@@ -300,6 +362,8 @@
         _starImageView.image = [UIImage imageNamed:starImageName];
         self.starDecorateLabel.hidden = NO;
         self.starImageView.hidden = NO;
+        self.duplicateButton.hidden = NO;
+        
         return nil;
     }];
     
@@ -331,11 +395,12 @@
         view.openerTextView.text = [self.dataSource[index] objectForKey:@"opener"];
         view.descriptionTextView.text = [self.dataSource[index] objectForKey:@"description"];
         [view.openerTextView addGestureRecognizer:tap];
-        
+        /*
         if ((![[[PFUser currentUser] objectForKey:@"type"] isEqualToString:@"1YearProVersion"]) && (index == 2) && (!_isFreeChanceUsing)) {
             view.payView.hidden = NO;
             [view.freeChanceButton setTitle:[NSString stringWithFormat:@"免费查看(%@)",[[PFUser currentUser] objectForKey:@"freeChance"]] forState:UIControlStateNormal];
         }
+        */
     }
     
     return view;

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <SwipeView.h>
 
-@interface HomeViewController : UIViewController<SwipeViewDelegate,SwipeViewDataSource,UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,MBProgressHUDDelegate>
+@interface HomeViewController : UIViewController<SwipeViewDelegate,SwipeViewDataSource,UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,MBProgressHUDDelegate,UIAlertViewDelegate>
 
 
 @end

@@ -16,6 +16,13 @@
 @interface MRCircularProgressView : UIView<MRStopableView>
 
 /**
+ Value label.
+ 
+ The label where the current progress is displayed, if the receiver's property mayStop has the value NO.
+ */
+@property (nonatomic, weak, readonly) UILabel *valueLabel;
+
+/**
  Current progress.
  
  Use associated setter for non animated changes. Otherwises use setProgress:animated:.
@@ -28,6 +35,20 @@
  Default is 0.3s. Must be larger than zero.
  */
 @property (nonatomic, assign) CFTimeInterval animationDuration UI_APPEARANCE_SELECTOR;
+
+/**
+ The line width of the outer circle
+ 
+ Default is 2.0. Must be larger than zero.
+ */
+@property (nonatomic, assign) CGFloat borderWidth UI_APPEARANCE_SELECTOR;
+
+/**
+ The line width of the inner circle
+ 
+ Default is 2.0. Must be larger than zero.
+ */
+@property (nonatomic, assign) CGFloat lineWidth UI_APPEARANCE_SELECTOR;
 
 /**
  Change progress animated.

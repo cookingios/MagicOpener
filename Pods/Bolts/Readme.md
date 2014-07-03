@@ -7,28 +7,29 @@ and we have decided to open source these libraries to make them available to
 others. Using these libraries does not require using any Parse services. Nor
 do they require having a Parse or Facebook developer account.
 
-The first component in Bolts is "tasks", which make organization of complex
-asynchronous code more manageable. A task is kind of like a JavaScript Promise,
-but available for iOS and Android.
+Bolts includes:
+
+* "Tasks", which make organization of complex asynchronous code more manageable. A task is kind of like a JavaScript Promise, but available for iOS and Android.
+* An implementation of the [App Links protocol](http://www.applinks.org), helping you link to content in other apps and handle incoming deep-links.
 
 For more information, see the [Bolts iOS API Reference](http://boltsframework.github.io/docs/ios/).
 
 # Tasks
 
 To build a truly responsive iOS application, you must keep long-running operations off of the UI thread, and be careful to avoid blocking anything the UI thread might be waiting on. This means you will need to execute various operations in the background. To make this easier, we've added a class called `BFTask`. A task represents the result of an asynchronous operation. Typically, a `BFTask` is returned from an asynchronous function and gives the ability to continue processing the result of the task. When a task is returned from a function, it's already begun doing its job. A task is not tied to a particular threading model: it represents the work being done, not where it is executing. Tasks have many advantages over other methods of asynchronous programming, such as callbacks. `BFTask` is not a replacement for `NSOperation` or GCD. In fact, they play well together. But tasks do fill in some gaps that those technologies don't address.
-* BFTask tasks care of managing dependencies for you. Unlike using NSOperation for dependency management, you don't have to declare all dependencies before starting a BFTask. For example, imagine you need to save a set of objects and each one may or may not require saving child objects. With an NSOperation, you would normally have to create operations for each of the child saves ahead of time. But you don't always know before you start the work whether that's going to be necessary. That can make managing dependencies with NSOperation very painful. Even in the best case, you have to create your dependencies before the operations that depend on them, which results in code that appears in a different order than it executes. With BFTask, you can decide during your operation's work whether there will be subtasks and return the other task in just those cases.
-* BFTasks release their dependencies. NSOperation strongly retains its dependencies, so if you have a queue of ordered operations and sequence them using dependencies, you have a leak, because every operation gets retained forever. BFTasks release their callbacks as soon as they are run, so everything cleans up after itself. This can reduce memory use, and simplify memory management.
-* BFTasks keep track of the state of finished tasks: It tracks whether there was a returned value, the task was cancelled, or if an error occurred. It also has convenience methods for propagating errors. With NSOperation, you have to build all of this stuff yourself.
-* BFTasks don't depend on any particular threading model. So it's easy to have some tasks perform their work with an operation queue, while others perform work using blocks with GCD. These tasks can depend on each other seamlessly.
+* `BFTask` tasks care of managing dependencies for you. Unlike using `NSOperation` for dependency management, you don't have to declare all dependencies before starting a `BFTask`. For example, imagine you need to save a set of objects and each one may or may not require saving child objects. With an `NSOperation`, you would normally have to create operations for each of the child saves ahead of time. But you don't always know before you start the work whether that's going to be necessary. That can make managing dependencies with `NSOperation` very painful. Even in the best case, you have to create your dependencies before the operations that depend on them, which results in code that appears in a different order than it executes. With `BFTask`, you can decide during your operation's work whether there will be subtasks and return the other task in just those cases.
+* `BFTasks` release their dependencies. `NSOperation` strongly retains its dependencies, so if you have a queue of ordered operations and sequence them using dependencies, you have a leak, because every operation gets retained forever. `BFTasks` release their callbacks as soon as they are run, so everything cleans up after itself. This can reduce memory use, and simplify memory management.
+* `BFTasks` keep track of the state of finished tasks: It tracks whether there was a returned value, the task was cancelled, or if an error occurred. It also has convenience methods for propagating errors. With `NSOperation`, you have to build all of this stuff yourself.
+* `BFTasks` don't depend on any particular threading model. So it's easy to have some tasks perform their work with an operation queue, while others perform work using blocks with GCD. These tasks can depend on each other seamlessly.
 * Performing several tasks in a row will not create nested "pyramid" code as you would get when using only callbacks.
-* BFTasks are fully composable, allowing you to perform branching, parallelism, and complex error handling, without the spaghetti code of having many named callbacks.
+* `BFTasks` are fully composable, allowing you to perform branching, parallelism, and complex error handling, without the spaghetti code of having many named callbacks.
 * You can arrange task-based code in the order that it executes, rather than having to split your logic across scattered callback functions.
 
-For the examples in this doc, assume there are async versions of some common Parse methods, called `saveAsync` and `findAsync` which return a `Task`. In a later section, we'll show how to define these functions yourself.
+For the examples in this doc, assume there are async versions of some common Parse methods, called `saveAsync:` and `findAsync:` which return a `Task`. In a later section, we'll show how to define these functions yourself.
 
 ## The `continueWithBlock` Method
 
-Every `BFTask` has a method named `continueWithBlock` which takes a continuation block. A continuation is a block that will be executed when the task is complete. You can then inspect the task to check if it was successful and to get its result.
+Every `BFTask` has a method named `continueWithBlock:` which takes a continuation block. A continuation is a block that will be executed when the task is complete. You can then inspect the task to check if it was successful and to get its result.
 
 ```objective-c
 [[self saveAsync:obj] continueWithBlock:^id(BFTask *task) {
@@ -38,7 +39,7 @@ Every `BFTask` has a method named `continueWithBlock` which takes a continuation
     // the save failed.
   } else {
     // the object was saved successfully.
-    PFObject *object = task.result();
+    PFObject *object = task.result;
   }
   return nil;
 }];
@@ -62,7 +63,7 @@ BFTasks use Objective-C blocks, so the syntax should be pretty straightforward. 
 }
 ```
 
-In many cases, you only want to do more work if the previous task was successful, and propagate any errors or cancellations to be dealt with later. To do this, use the `continueWithSuccessBlock` method instead of `continueWithBlock`.
+In many cases, you only want to do more work if the previous task was successful, and propagate any errors or cancellations to be dealt with later. To do this, use the `continueWithSuccessBlock:` method instead of `continueWithBlock:`.
 
 ```objective-c
 [[self saveAsync:obj] continueWithSuccessBlock:^id(BFTask *task) {
@@ -73,7 +74,7 @@ In many cases, you only want to do more work if the previous task was successful
 
 ## Chaining Tasks Together
 
-BFTasks are a little bit magical, in that they let you chain them without nesting. If you return a BFTask from `continueWithBlock`, then the task returned by `continueWithBlock` will not be considered finished until the new task returned from the new continuation block. This lets you perform multiple actions without incurring the pyramid code you would get with callbacks. Likewise, you can return a BFTask from `continueWithSuccessBlock`. So, return a BFTask to do more asynchronous work.
+BFTasks are a little bit magical, in that they let you chain them without nesting. If you return a BFTask from `continueWithBlock:`, then the task returned by `continueWithBlock:` will not be considered finished until the new task returned from the new continuation block. This lets you perform multiple actions without incurring the pyramid code you would get with callbacks. Likewise, you can return a `BFTask` from `continueWithSuccessBlock:`. So, return a `BFTask` to do more asynchronous work.
 
 ```objective-c
 PFQuery *query = [PFQuery queryWithClassName:@"Student"];
@@ -99,11 +100,10 @@ PFQuery *query = [PFQuery queryWithClassName:@"Student"];
 
 ## Error Handling
 
-By carefully choosing whether to call `continueWithBlock` or `continueWithSuccessBlock`, you can control how errors are propagated in your application. Using `continueWithBlock` lets you handle errors by transforming them or dealing with them. You can think of failed tasks kind of like throwing an exception. In fact, if you throw an exception inside a continuation, the resulting task will be faulted with that exception.
+By carefully choosing whether to call `continueWithBlock:` or `continueWithSuccessBlock:`, you can control how errors are propagated in your application. Using `continueWithBlock:` lets you handle errors by transforming them or dealing with them. You can think of failed tasks kind of like throwing an exception. In fact, if you throw an exception inside a continuation, the resulting task will be faulted with that exception.
 
 ```objective-c
 PFQuery *query = [PFQuery queryWithClassName:@"Student"];
-query.orderByDescending("gpa");
 [query orderByDescending:@"gpa"];
 [[[[[self findAsync:query] continueWithSuccessBlock:^id(BFTask *task) {
   NSArray *students = task.result;
@@ -141,7 +141,7 @@ It's often convenient to have a long chain of success callbacks with only one er
 
 ## Creating Tasks
 
-When you're getting started, you can just use the tasks returned from methods like `findAsync` or `saveAsync`. However, for more advanced scenarios, you may want to make your own tasks. To do that, you create a `BFTaskCompletionSource`. This object will let you create a new BFTask, and control whether it gets marked as finished or cancelled. After you create a `BFTask`, you'll need to call `setResult`, `setError`, or `setCancelled` to trigger its continuations.
+When you're getting started, you can just use the tasks returned from methods like `findAsync:` or `saveAsync:`. However, for more advanced scenarios, you may want to make your own tasks. To do that, you create a `BFTaskCompletionSource`. This object will let you create a new `BFTask`, and control whether it gets marked as finished or cancelled. After you create a `BFTask`, you'll need to call `setResult:`, `setError:`, or `cancel` to trigger its continuations.
 
 ```objective-c
 - (BFTask *)successAsync {
@@ -150,7 +150,7 @@ When you're getting started, you can just use the tasks returned from methods li
   return successful.task;
 }
 
-- (BFTask *)failAsync() {
+- (BFTask *)failAsync {
   BFTaskCompletionSource *failed = [BFTaskCompletionSource taskCompletionSource];
   [failed setError:[NSError errorWithDomain:@"example.com" code:-1 userInfo:nil]];
   return failed.task;
@@ -162,17 +162,17 @@ If you know the result of a task at the time it is created, there are some conve
 ```objective-c
 BFTask *successful = [BFTask taskWithResult:@"The good result."];
 
-BFTask *failed = [BFTask taskWithError:anError]; 
+BFTask *failed = [BFTask taskWithError:anError];
 ```
 
 ## Creating Async Methods
 
-With these tools, it's easy to make your own asynchronous functions that return tasks. For example, you can make a task-based version of `fetchAsync` easily.
+With these tools, it's easy to make your own asynchronous functions that return tasks. For example, you can make a task-based version of `fetchAsync:` easily.
 
 ```objective-c
 - (BFTask *) fetchAsync:(PFObject *)object {
   BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
-  [object fetchInBackgroundWithBlock::^(PFObject *object, NSError *error) {
+  [object fetchInBackgroundWithBlock:^(PFObject *object, NSError *error) {
     if (!error) {
       [task setResult:object];
     } else {
@@ -182,12 +182,12 @@ With these tools, it's easy to make your own asynchronous functions that return 
   return task.task;
 }
 ```
-   
-It's similarly easy to create `saveAsync`, `findAsync` or `deleteAsync`.
+
+It's similarly easy to create `saveAsync:`, `findAsync:` or `deleteAsync:`.
 
 ## Tasks in Series
 
-BFTasks are convenient when you want to do a series of tasks in a row, each one waiting for the previous to finish. For example, imagine you want to delete all of the comments on your blog.
+`BFTasks` are convenient when you want to do a series of tasks in a row, each one waiting for the previous to finish. For example, imagine you want to delete all of the comments on your blog.
 
 ```objective-c
 PFQuery *query = [PFQuery queryWithClassName:@"Comments"];
@@ -238,7 +238,7 @@ PFQuery *query = [PFQuery queryWithClassName:@"Comments"];
 
 ## Task Executors
 
-Both `continueWithBlock` and `continueWithSuccessBlock` methods have another form that takes an instance of `BFExecutor`. These are `continueWithExecutor:withBlock:` and `continueWithExecutor:withSuccessBlock`. These methods allow you to control how the continuation is executed. The default executor will dispatch to GCD, but you can provide your own executor to schedule work onto a different thread. For example, if you want to continue with work on the UI thread:
+Both `continueWithBlock:` and `continueWithSuccessBlock:` methods have another form that takes an instance of `BFExecutor`. These are `continueWithExecutor:withBlock:` and `continueWithExecutor:withSuccessBlock:`. These methods allow you to control how the continuation is executed. The default executor will dispatch to GCD, but you can provide your own executor to schedule work onto a different thread. For example, if you want to continue with work on the UI thread:
 
 ```objective-c
 // Create a BFExecutor that uses the main thread.
@@ -253,7 +253,7 @@ BFExecutor *myExecutor = [BFExecutor executorWithBlock:^void(void(^block)()) {
 }];
 ```
 
-For common cases, such as dispatching on the main thread, we have provided default implementations of BFExecutor. These include `defaultExecutor`, `immediateExecutor`, `mainThreadExecutor`, `executorWithDispatchQueue:`, and `executorWithOperationQueue:`. For example:
+For common cases, such as dispatching on the main thread, we have provided default implementations of `BFExecutor`. These include `defaultExecutor`, `immediateExecutor`, `mainThreadExecutor`, `executorWithDispatchQueue:`, and `executorWithOperationQueue:`. For example:
 
 ```objective-c
 // Continue on the Main Thread, using a built-in executor.
@@ -262,10 +262,163 @@ For common cases, such as dispatching on the main thread, we have provided defau
 }];
 ```
 
+## Task Cancellation
+
+It's generally bad design to keep track of the `BFTaskCompletionSource` for cancellation. A better model is to create a "cancellation token" at the top level, and pass that to each async function that you want to be part of the same "cancelable operation". Then, in your continuation blocks, you can check whether the cancellation token has been cancelled and bail out early by returning a `[BFTask cancelledTask]`. For example:
+
+```objective-c
+- (void)doSomethingComplicatedAsync:(MYCancellationToken *)cancellationToken {
+    [[self doSomethingAsync:cancellationToken] continueWithBlock:^{
+        if (cancellationToken.isCancelled) {
+            return [BFTask cancelledTask];
+        }
+        // Do something that takes a while.
+        return result;
+    }];
+}
+
+// Somewhere else.
+MYCancellationToken *cancellationToken = [[MYCancellationToken alloc] init];
+[obj doSomethingComplicatedAsync:cancellationToken];
+
+// When you get bored...
+[cancellationToken cancel];
+```
+
+**Note:** The cancellation token implementation should be thread-safe.  
+We are likely to add some concept like this to Bolts at some point in the future.
+
+# App Links
+
+[App Links](http://www.applinks.org) provide a cross-platform mechanism that allows a developer to define and publish a deep-linking scheme for their content, allowing other apps to link directly to an experience optimized for the device they are running on. Whether you are building an app that receives incoming links or one that may link out to other apps' content, Bolts provides tools to simplify implementation of the [App Links protocol](http://www.applinks.org/documentation).
+
+## Handling an App Link
+
+The most common case will be making your app receive App Links. In-linking will allow your users to quickly access the richest, most native-feeling presentation of linked content on their devices. Bolts makes it easy to handle an inbound App Link (as well as general inbound deep-links) by providing utilities for processing an incoming URL.
+
+For example, you can use the `BFURL` utility class to parse an incoming URL in your `AppDelegate`:
+
+```objective-c
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    BFURL *parsedUrl = [BFURL URLWithURL:url];
+    
+    // Use the target URL from the App Link to locate content.
+    if ([parsedUrl.targetURL.pathComponents[1] isEqualToString:@"profiles"]) {
+        // Open a profile viewer.
+    }
+    
+    // You can also check the query string easily.
+    NSString *query = parsedUrl.targetQueryParameters[@"query"];
+    
+    // Apps that have existing deep-linking support and map their App Links to existing
+    // deep-linking functionality may instead want to perform these operations on the input URL.
+    // Use the target URL from the App Link to locate content.
+    if ([parsedUrl.inputURL.pathComponents[1] isEqualToString:@"profiles"]) {
+        // Open a profile viewer.
+    }
+    
+    // You can also check the query string easily.
+    NSString *query = parsedUrl.inputQueryParameters[@"query"];
+    
+    // Apps can easily check the Extras and App Link data from the App Link as well.
+    NSString *fbAccessToken = parsedUrl.appLinkExtras[@"fb_access_token"];
+    NSDictionary *refererData = parsedUrl.appLinkExtras[@"referer"];
+}
+```
+
+## Navigating to a URL
+
+Following an App Link allows your app to provide the best user experience (as defined by the receiving app) when a user navigates to a link. Bolts makes this process simple, automating the steps required to follow a link:
+
+1. Resolve the App Link by getting the App Link metadata from the HTML at the URL specified.
+2. Step through App Link targets relevant to the device being used, checking whether the app that can handle the target is present on the device.
+3. If an app is present, build a URL with the appropriate al_applink_data specified and navigate to that URL.
+4. Otherwise, open the browser with the original URL specified.
+
+In the simplest case, it takes just one line of code to navigate to a URL that may have an App Link:
+
+```objective-c
+[BFAppLinkNavigation navigateToURLInBackground:url];
+```
+
+### Adding App and Navigation Data
+
+Under most circumstances, the data that will need to be passed along to an app during a navigation will be contained in the URL itself, so that whether or not the app is actually installed on the device, users are taken to the correct content. Occasionally, however, apps will want to pass along data that is relevant for app-to-app navigation, or will want to augment the App Link protocol with information that might be used by the app to adjust how the app should behave (e.g. showing a link back to the referring app).
+
+If you want to take advantage of these features, you can break apart the navigation process. First, you must have an App Link to which you wish to navigate:
+
+```objective-c
+[[BFAppLinkNavigation resolveAppLinkInBackground:url] continueWithSuccessBlock:^id(BFTask *task) {
+    BFAppLink *link = task.result;
+}];
+```
+
+Then, you can build an App Link request with any additional data you would like and navigate:
+
+```objective-c
+BFAppLinkNavigation *navigation = [BFAppLinkNavigation navigationWithAppLink:link
+                                                                      extras:@{ @"access_token": @"t0kEn" }
+                                                                 appLinkData:@{ @"ref": @"12345" }];
+NSError *error = nil;
+[navigation navigate:&error];
+```
+
+### Resolving App Link Metadata
+
+Bolts allows for custom App Link resolution, which may be used as a performance optimization (e.g. caching the metadata) or as a mechanism to allow developers to use a centralized index for obtaining App Link metadata. A custom App Link resolver just needs to be able to take a URL and return a `BFAppLink` containing the ordered list of `BFAppLinkTarget`s that are applicable for this device. Bolts provides one of these out of the box that performs this resolution on the device using a hidden UIWebView.
+
+You can use any resolver that implements the `BFAppLinkResolving` protocol by using one of the overloads on `BFAppLinkNavigation`:
+
+```objective-c
+[BFAppLinkNavigation navigateToURLInBackground:url
+                                      resolver:resolver];
+```
+
+Alternatively, a you can swap out the default resolver to be used by the built-in APIs:
+
+```objective-c
+[BFAppLinkNavigation setDefaultResolver:resolver];
+[BFAppLinkNavigation navigateToURLInBackground:url];
+```
+
+## App Link Return-to-Referer View
+
+When an application is opened via an App Link, a banner allowing the user to "Touch to return to <calling app>" should be displayed. The `BFAppLinkReturnToRefererView` provides this functionality. It will take an incoming App Link and parse the referer information to display the appropriate calling app name. You may initialize the view either by loading it from a NIB or programmatically:
+
+```objective-c
+- (void)viewDidLoad {
+  [super viewDidLoad];
+
+  // Perform other view initialization.
+
+  self.returnToRefererView = [[BFAppLinkReturnToRefererView alloc] initWithFrame:CGRectZero];
+  self.returnToRefererController = [[BFAppLinkReturnToRefererController] alloc] init];
+
+  // We could also have left .view unassigned and the controller will automatically
+  //  create a BFAppLinkReturnToRefererView when it needs one.
+  self.returnToRefererController.view = self.returnToRefererView;
+}
+```
+
+Note that we initialize the view with a zero size, because we will determine whether or not to display a banner based on the referer data in the incoming App Link using the associated `BFAppLinkReturnToRefererController`, typically in a view controller's `viewWillAppear` or similar method, depending on a particular app's view hierarchy, etc. The following code assumes that the view controller has an `openedAppLinkURL` `NSURL` property that has already been populated with the URL used to open the app:
+
+```objective-c
+- (void)viewWillAppear {
+  [super viewWillAppear];
+
+  [self.returnToRefererController showViewForRefererURL:self.openedAppLinkURL];
+}
+```
+
+In a navigaton-controller view hierarchy, the banner should be displayed above the navigation bar, and `BFAppLinkReturnToRefererController` provides an `initForDisplayAboveNavController` method to assist with this.
+
 # Installation
 
 You can download the latest framework files from our [Releases page](https://github.com/BoltsFramework/Bolts-iOS/releases).
 
 Bolts is also available through [CocoaPods](http://cocoapods.org). To install it simply add the following line to your Podfile:
 
-    pod "Bolts"
+    pod 'Bolts'

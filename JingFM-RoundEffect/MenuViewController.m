@@ -12,8 +12,10 @@
 
 @interface MenuViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *messageImageView;
+
 @property (weak, nonatomic) IBOutlet UILabel *messageCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *advertLabel;
+@property (weak, nonatomic) IBOutlet UITableViewCell *advertCell;
 
 @end
 
@@ -41,24 +43,49 @@
 
 - (void)configUnreadMessageLabel{
     
-    UITapGestureRecognizer *messageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(presentMessageViewController)];
-    [self.messageImageView addGestureRecognizer:messageTap];
-    
     self.messageCountLabel.layer.cornerRadius = 5.0f;
     self.messageCountLabel.layer.masksToBounds = YES;
     
-    if ([PFUser currentUser]) {
-        PFQuery *query = [PFQuery queryWithClassName:@"Activity"];
-        [query whereKey:@"toUser" equalTo:[PFUser currentUser]];
-        [query whereKey:@"fromUser" notEqualTo:[PFUser currentUser]];
-        [query whereKey:@"status" equalTo:@0];
-        [query whereKey:@"type" equalTo:@"comment"];
+    PFUser *user = [PFUser currentUser];
+    BOOL isExpert = [[user objectForKey:@"isExpert"] boolValue];
+    
+    
+    //专家用户
+    if (user && isExpert) {
+        PFQuery *query = [PFQuery queryWithClassName:@"Message"];
+        [query whereKey:@"expert" equalTo:[PFUser currentUser]];
+        [query whereKey:@"isReplyed" equalTo:[NSNumber numberWithBool:NO]];
         [query setCachePolicy:kPFCachePolicyNetworkOnly];
         [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
             if (!error) {
                 // The count request succeeded. Log the count
                 NSNumber *number = [NSNumber numberWithInt:count];
-                NSLog(@"get count %@",number);
+                NSLog(@"get unread count %@",number);
+                if (number.integerValue > 0) {
+                    self.messageCountLabel.hidden = NO;
+                    self.messageCountLabel.text = [NSString stringWithFormat:@"%@",number];
+                }else self.messageCountLabel.hidden = YES;
+                
+            } else {
+                // The request failed
+                //self.unreadMessageCount = @0;
+                self.messageCountLabel.hidden = YES;
+                NSLog(@"get error by unread count %@",error);
+            }
+        }];
+    //普通用户
+    }else if(user && (!isExpert)){
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Message"];
+        [query whereKey:@"fromUser" equalTo:[PFUser currentUser]];
+        [query whereKey:@"isReplyed" equalTo:[NSNumber numberWithBool:YES]];
+        [query setCachePolicy:kPFCachePolicyNetworkOnly];
+        [query whereKey:@"isRead" equalTo:[NSNumber numberWithBool:NO]];
+        [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+            if (!error) {
+                // The count request succeeded. Log the count
+                NSNumber *number = [NSNumber numberWithInt:count];
+                NSLog(@"get unread count %@",number);
                 if (number.integerValue > 0) {
                     self.messageCountLabel.hidden = NO;
                     self.messageCountLabel.text = [NSString stringWithFormat:@"%@",number];
@@ -72,10 +99,21 @@
             }
         }];
     }
-        
-
-    
 }
+
+- (void)configAdvertisementLabel{
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Config"];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error) {
+            if ([[object objectForKey:@"isShowedAdvert"] isEqualToNumber:@1]) {
+                self.advertCell.hidden = NO;
+            }
+        }
+    }];
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -89,7 +127,6 @@
     
     switch (indexPath.row) {
         case 0:
-            //[dvc setValue:@"clue" forKey:@"eventType"];
             navigationController.viewControllers = @[dvc];
             [self.sideMenuViewController hideMenuViewController];
             break;
@@ -98,18 +135,23 @@
             [self.sideMenuViewController hideMenuViewController];
             break;
         case 2:
-            [dvc setValue:@"adopt" forKey:@"eventType"];
-            navigationController.viewControllers = @[dvc];
+            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"MessageViewController"]];
             [self.sideMenuViewController hideMenuViewController];
             break;
         case 4:
-            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"CreateViewController"]];
-            [self.sideMenuViewController hideMenuViewController];
-            break;
-        case 5:
             navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"IntroViewController"]];
             [self.sideMenuViewController hideMenuViewController];
             break;
+        case 5:
+            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"FeedBackViewController"]];
+            [self.sideMenuViewController hideMenuViewController];
+            break;
+            /*
+        case 6:
+            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"AdvertisementViewController"]];
+            [self.sideMenuViewController hideMenuViewController];
+            break;
+             */
 
             
         default:
@@ -127,6 +169,8 @@
 - (void)sideMenu:(RESideMenu *)sideMenu willShowMenuViewController:(UIViewController *)menuViewController{
 
     [self configUnreadMessageLabel];
+    //[self configAdvertisementLabel];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
 }
 @end

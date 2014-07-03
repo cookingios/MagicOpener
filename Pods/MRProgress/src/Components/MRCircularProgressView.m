@@ -65,9 +65,9 @@ NSString *const MRCircularProgressViewProgressAnimationKey = @"MRCircularProgres
     numberFormatter.numberStyle = NSNumberFormatterPercentStyle;
     numberFormatter.locale = NSLocale.currentLocale;
     
-    self.layer.borderWidth = 2.0f;
+    self.borderWidth = 2.0f;
+    self.lineWidth = 2.0f;
     
-    self.shapeLayer.lineWidth = 2.0f;
     self.shapeLayer.fillColor = UIColor.clearColor.CGColor;
     
     UILabel *valueLabel = [UILabel new];
@@ -82,6 +82,27 @@ NSString *const MRCircularProgressViewProgressAnimationKey = @"MRCircularProgres
     self.stopButton = stopButton;
     
     self.mayStop = NO;
+    
+    [self tintColorDidChange];
+}
+
+
+#pragma mark - Properties
+
+- (CGFloat)borderWidth {
+    return self.shapeLayer.borderWidth;
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    self.shapeLayer.borderWidth = borderWidth;
+}
+
+- (CGFloat)lineWidth {
+    return self.shapeLayer.lineWidth;
+}
+
+- (void)setLineWidth:(CGFloat)lineWidth {
+    self.shapeLayer.lineWidth = lineWidth;
 }
 
 
@@ -108,8 +129,9 @@ NSString *const MRCircularProgressViewProgressAnimationKey = @"MRCircularProgres
     const double endAngle = startAngle + TWO_M_PI;
     
     CGFloat width = self.frame.size.width;
+    CGFloat borderWidth = self.layer.borderWidth;
     return [UIBezierPath bezierPathWithArcCenter:CGPointMake(width/2.0f, width/2.0f)
-                                          radius:width/2.0f - 2.5f
+                                          radius:width/2.0f - borderWidth
                                       startAngle:startAngle
                                         endAngle:endAngle
                                        clockwise:YES];
@@ -124,7 +146,7 @@ NSString *const MRCircularProgressViewProgressAnimationKey = @"MRCircularProgres
     self.shapeLayer.strokeColor = tintColor.CGColor;
     self.layer.borderColor = tintColor.CGColor;
     self.valueLabel.textColor = tintColor;
-    self.stopButton.backgroundColor = tintColor;
+    self.stopButton.tintColor = tintColor;
 }
 
 
@@ -191,6 +213,8 @@ NSString *const MRCircularProgressViewProgressAnimationKey = @"MRCircularProgres
     animation.fromValue = @(self.progress);
     animation.toValue = @(progress);
     animation.delegate = self;
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
     [self.shapeLayer addAnimation:animation forKey:MRCircularProgressViewProgressAnimationKey];
     
     // Add timer to update valueLabel
@@ -230,8 +254,7 @@ NSString *const MRCircularProgressViewProgressAnimationKey = @"MRCircularProgres
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     [self updateProgress];
-    [self.valueLabelUpdateTimer invalidate];
-    self.valueLabelUpdateTimer = nil;
+    [self stopAnimation];
 }
 
 @end

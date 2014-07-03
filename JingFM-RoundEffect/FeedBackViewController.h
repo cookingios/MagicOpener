@@ -1,13 +1,13 @@
 //
 //  FeedBackViewController.h
-//  MagicOpener
+//  WebApp
 //
-//  Created by wenlin on 13-10-9.
-//  Copyright (c) 2013年 isaced. All rights reserved.
+//  Created by wenlin on 14-5-16.
+//  Copyright (c) 2014年 bryq. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface FeedBackViewController : UITableViewController
+@interface FeedBackViewController : UIViewController
 
 @end

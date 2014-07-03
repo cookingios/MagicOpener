@@ -17,6 +17,7 @@
 @property (strong,nonatomic) PFFile *screenshot;
 @property (strong,nonatomic) MBProgressHUD *hud;
 @property (strong,nonatomic) PFUser *toUser;
+@property (strong,nonatomic) NSString *toUserId;
 
 - (IBAction)submit:(id)sender;
 
@@ -48,8 +49,18 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    NSLog(@"toUser is %@",[self.toUser description]);
+    
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"SubmitQuestionType1"];
+    //NSLog(@"toUser is %@",[self.toUser description]);
     [TSMessage setDefaultViewController:self.navigationController];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"SubmitQuestionType1"];
+    
 }
 - (void)selectImage{
     [self takePictureFromPhotoLibrary];
@@ -90,33 +101,39 @@
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:25.0f target:self selector:@selector(handleHudTimeout) userInfo:nil repeats:NO];
     
-    PFObject *feedback = [PFObject objectWithClassName:@"Feedback"];
-    [feedback setObject:@2 forKey:@"questionId"];
+    
+    self.toUser = [PFQuery getUserObjectWithId:self.toUserId];
+    
+    if (!self.toUser) {
+        return [self showErrorMessage:@"无法获取情感专家信息,请检查网络"];
+    }
+    
+    PFObject *message = [PFObject objectWithClassName:@"Message"];
     if (self.screenshot) {
-        [feedback setObject:self.screenshot forKey:@"screenshot"];
+        [message setObject:self.screenshot forKey:@"screenshot"];
     }
     
     if (![self.contentTextView.text isEqualToString:@""]){
-        [feedback setObject:self.contentTextView.text forKey:@"dateProblem"];
+        [message setObject:self.contentTextView.text forKey:@"problem"];
     }
-    [feedback setObject:[NSNumber numberWithBool:NO] forKey:@"isReplyed"];
-    [feedback setObject:[PFUser currentUser] forKey:@"fromUser"];
-    [feedback setObject:self.toUser forKey:@"toUser"];
-    [feedback setObject:[[PFUser currentUser] objectForKey:@"email"] forKey:@"email"];
-    [feedback saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [message setObject:[NSNumber numberWithBool:NO] forKey:@"isReplyed"];
+    [message setObject:[NSNumber numberWithBool:NO] forKey:@"isRead"];
+    [message setObject:[PFUser currentUser] forKey:@"fromUser"];
+    [message setObject:self.toUser forKey:@"expert"];
+    [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             [timer invalidate];
             _hud.mode = MBProgressHUDModeText;
             _hud.labelText = @"成功提交";
             [_hud hide:YES afterDelay:2];
             //推送
-            if (![[self.toUser objectId]isEqualToString:[[PFUser currentUser] objectId]]) {
+            //if (![[self.toUser objectId]isEqualToString:[[PFUser currentUser] objectId]]) {
                 PFQuery *pushQuery = [PFInstallation query];
                 [pushQuery whereKey:@"owner" equalTo:self.toUser]; // Set notification toUser
                 //Create Options
                 NSDictionary *data = @{
                                        @"alert":@"你收到一条求助信息",
-                                       @"eventId":feedback.objectId,
+                                       @"eventId":message.objectId,
                                        @"badge":@"Increment",
                                        @"sound":@"Voidcemail.caf"
                                        };
@@ -125,7 +142,7 @@
                 [push setQuery:pushQuery];
                 [push setData:data];
                 [push sendPushInBackground];
-            }
+            //}
             [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
             [self showErrorMessage:@"网络连接问题,稍后再试"];

@@ -45,9 +45,17 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"Welcome"];
+    
     self.navigationController.navigationBarHidden = YES;
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:YES];
+    [MobClick endLogPageView:@"Welcome"];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -63,7 +71,7 @@
 
 - (UIImage *)animatedImagesView:(JSAnimatedImagesView *)animatedImagesView imageAtIndex:(NSUInteger)index
 {
-    return [UIImage imageNamed:[NSString stringWithFormat:@"login-%d.png", index + 1]];
+    return [UIImage imageNamed:[NSString stringWithFormat:@"login-%ld.png", (long)(index + 1)]];
 }
 
 

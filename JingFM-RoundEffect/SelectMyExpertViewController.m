@@ -11,7 +11,7 @@
 
 @interface SelectMyExpertViewController ()
 
-@property (strong,nonatomic) PFUser *toUser;
+@property (strong,nonatomic) NSString *toUserId;
 
 
 - (IBAction)showMenu:(id)sender;
@@ -41,6 +41,20 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"Helper"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"Helper"];
+    
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -53,15 +67,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    PFQuery *query = [PFUser query];
     
     switch (indexPath.row) {
         case 0:
-            self.toUser = (PFUser *)[query getObjectWithId:@"zlUNHVRCEX"];
+            self.toUserId = @"zlUNHVRCEX";
             break;
         case 1:
-            self.toUser = (PFUser *)[query getObjectWithId:@"ZTLhLSzDf2"];
+            self.toUserId = @"ZTLhLSzDf2";
+            break;
+        case 2:
+            self.toUserId = @"DrIepaI8DF";
             break;
             
         default:
@@ -81,7 +96,7 @@
     // Pass the selected object to the new view controller.
     id dvc = segue.destinationViewController;
     if ([segue.identifier isEqualToString:@"SubmitSegue"]) {
-        [dvc setValue:self.toUser forKey:@"toUser"];
+        [dvc setValue:self.toUserId forKey:@"toUserId"];
     }
 }
 

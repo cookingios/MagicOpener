@@ -14,6 +14,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    [MobClick startWithAppkey:@"5394383a56240b4ed102115a" reportPolicy:SEND_INTERVAL   channelId:@"91Helper"];
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+    
     [Parse setApplicationId:@"uVNIxVLBvUWvVtLaFhMquaYZR2Tqje84YwcQ63i6"
                   clientKey:@"i28vvdncRQOzvLg7MqC4EYTXOyAChThecuC5D2Dm"];
     
@@ -23,19 +28,27 @@
                     andRegion:APIServerRegionCN];
     
     [FaceppAPI setDebugMode:YES];
-    /*
-    NSData *imageData = UIImageJPEGRepresentation(
-                                                  [UIImage imageNamed:@"sample.jpg"], 100);
-    FaceppResult *result = [[FaceppAPI detection] detectWithURL:nil
-                                                    orImageData:imageData];
-    */
-
     // Override point for customization after application launch.
     
     [PFPurchase addObserverForProduct:@"1YearProVersion" block:^(SKPaymentTransaction *transaction) {
         [[PFUser currentUser] setObject:@"1YearProVersion" forKey:@"type"];
         [[PFUser currentUser] saveInBackground];
     }];
+    
+    //PUSH Notification
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+     UIRemoteNotificationTypeAlert|
+     UIRemoteNotificationTypeSound];
+    
+    /*
+    Class cls = NSClassFromString(@"UMANUtil");
+    SEL deviceIDSelector = @selector(openUDIDString);
+    NSString *deviceID = nil;
+    if(cls && [cls respondsToSelector:deviceIDSelector]){
+        deviceID = [cls performSelector:deviceIDSelector];
+    }
+    NSLog(@"{\"oid\": \"%@\"}", deviceID);
+    */
     
     return YES;
 }
@@ -60,11 +73,53 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    
+    if (![[PFUser currentUser] objectForKey:@"isExpert"]){
+        //user badge 打开即消失
+        if (currentInstallation.badge != 0) {
+            currentInstallation.badge = 0;
+            [currentInstallation saveEventually];
+        }
+    }else{
+        //expert 的badge一直保留
+        PFQuery *query = [PFQuery queryWithClassName:@"Message"];
+        [query whereKey:@"expert" equalTo:[PFUser currentUser]];
+        [query whereKey:@"isReplyed" equalTo:[NSNumber numberWithBool:NO]];
+        [query setCachePolicy:kPFCachePolicyNetworkOnly];
+        [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+            if (!error) {
+                // The count request succeeded. Log the count
+                currentInstallation.badge = count;
+                [currentInstallation saveEventually];
+            }
+        }];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+#pragma mark - push notifications
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    
+    if ([PFUser currentUser]) {
+        [currentInstallation setObject:[PFUser currentUser] forKey:@"owner"];
+    }
+    [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    //[[MOManager sharedManager] getUnreadMessageCount];
+    
+}
+
 
 @end
