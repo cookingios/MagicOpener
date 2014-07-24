@@ -225,29 +225,6 @@
     }
 }
 
-#pragma mark - 菜单 DataSource & delegate
-- (void)sidebar:(RNFrostedSidebar *)sidebar didTapItemAtIndex:(NSUInteger)index {
-    
-    NSLog(@"Tapped item at index %i",index);
-    [sidebar dismissAnimated:YES];
-    
-    switch (index) {
-        case 1:
-            NSLog(@"tap DateIdea");
-            [self performSegueWithIdentifier:@"DateIdeaSegue" sender:self];
-            break;
-        case 2:
-            [self performSegueWithIdentifier:@"HelpSegue" sender:self];
-            break;
-        case 3:
-            
-            break;
-            
-        default:
-            break;
-    }
-
-}
 
 #pragma mark - 复制
 - (IBAction)duplicateOpener:(id)sender {

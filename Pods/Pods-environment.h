@@ -39,8 +39,8 @@
 // Facebook-iOS-SDK
 #define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK
 #define COCOAPODS_VERSION_MAJOR_Facebook_iOS_SDK 3
-#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 15
-#define COCOAPODS_VERSION_PATCH_Facebook_iOS_SDK 0
+#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 16
+#define COCOAPODS_VERSION_PATCH_Facebook_iOS_SDK 1
 
 // HexColors
 #define COCOAPODS_POD_AVAILABLE_HexColors
@@ -144,18 +144,6 @@
 #define COCOAPODS_VERSION_MINOR_RESideMenu 4
 #define COCOAPODS_VERSION_PATCH_RESideMenu 0
 
-// RNFrostedSidebar
-#define COCOAPODS_POD_AVAILABLE_RNFrostedSidebar
-#define COCOAPODS_VERSION_MAJOR_RNFrostedSidebar 0
-#define COCOAPODS_VERSION_MINOR_RNFrostedSidebar 2
-#define COCOAPODS_VERSION_PATCH_RNFrostedSidebar 0
-
-// RNGridMenu
-#define COCOAPODS_POD_AVAILABLE_RNGridMenu
-#define COCOAPODS_VERSION_MAJOR_RNGridMenu 0
-#define COCOAPODS_VERSION_MINOR_RNGridMenu 1
-#define COCOAPODS_VERSION_PATCH_RNGridMenu 3
-
 // RPFloatingPlaceholders
 #define COCOAPODS_POD_AVAILABLE_RPFloatingPlaceholders
 #define COCOAPODS_VERSION_MAJOR_RPFloatingPlaceholders 0
@@ -185,12 +173,6 @@
 #define COCOAPODS_VERSION_MAJOR_ReactiveCocoa_no_arc 2
 #define COCOAPODS_VERSION_MINOR_ReactiveCocoa_no_arc 3
 #define COCOAPODS_VERSION_PATCH_ReactiveCocoa_no_arc 1
-
-// RegExCategories
-#define COCOAPODS_POD_AVAILABLE_RegExCategories
-#define COCOAPODS_VERSION_MAJOR_RegExCategories 1
-#define COCOAPODS_VERSION_MINOR_RegExCategories 0
-#define COCOAPODS_VERSION_PATCH_RegExCategories 0
 
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage

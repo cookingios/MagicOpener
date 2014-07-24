@@ -16,6 +16,5 @@
     #import "MBProgressHUD.h"
     #import <TSMessage.h>
     #import <MRProgress/MRProgress.h>
-    #import <RegExCategories.h>
     #import "MobClick.h"
 #endif

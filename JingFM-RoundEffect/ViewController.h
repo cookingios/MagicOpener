@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "JingRoundView.h"
-#import <RNGridMenu.h>
-#import <RNFrostedSidebar.h>
 #import <MBProgressHUD.h>
 
 
-@interface ViewController : UIViewController<JingRoundViewDelegate,UIActionSheetDelegate,RNGridMenuDelegate,MBProgressHUDDelegate,RNFrostedSidebarDelegate>{
+@interface ViewController : UIViewController<JingRoundViewDelegate,UIActionSheetDelegate,MBProgressHUDDelegate>{
     
     MBProgressHUD *HUD;
     
