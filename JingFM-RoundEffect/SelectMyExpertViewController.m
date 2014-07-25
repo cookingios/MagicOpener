@@ -83,7 +83,7 @@
             break;
     }
     
-    [self performSegueWithIdentifier:@"SubmitSegue" sender:self];
+    [self performSegueWithIdentifier:@"SelectQuestionTypeSegue" sender:self];
     
 }
 
@@ -95,7 +95,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     id dvc = segue.destinationViewController;
-    if ([segue.identifier isEqualToString:@"SubmitSegue"]) {
+    if ([segue.identifier isEqualToString:@"SelectQuestionTypeSegue"]) {
         [dvc setValue:self.toUserId forKey:@"toUserId"];
     }
 }

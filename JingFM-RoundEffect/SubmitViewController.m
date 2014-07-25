@@ -18,6 +18,7 @@
 @property (strong,nonatomic) MBProgressHUD *hud;
 @property (strong,nonatomic) PFUser *toUser;
 @property (strong,nonatomic) NSString *toUserId;
+@property (strong,nonatomic) NSString *type;
 
 - (IBAction)submit:(id)sender;
 
@@ -41,7 +42,7 @@
     self.contentTextView.delegate = self;
     self.contentTextView.animationDirection = RPFloatingPlaceholderAnimateDownward;
     self.contentTextView.floatingLabelActiveTextColor = [UIColor lightGrayColor];
-    self.contentTextView.placeholder = @"遇到什么话题不会接?";
+    self.contentTextView.placeholder = @"说点什么呢...";
     //截图
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectImage)];
     [self.eventImageView addGestureRecognizer:tap];
