@@ -8,13 +8,19 @@
 
 #import "SelectMyExpertViewController.h"
 #import <RESideMenu.h>
+#import "MOExpert.h"
 
 @interface SelectMyExpertViewController ()
 
 @property (strong,nonatomic) NSString *toUserId;
-
+@property (strong,nonatomic) NSArray * experts;
+@property (strong,nonatomic) MOExpert *currentExpert;
+@property (strong,nonatomic) MBProgressHUD *hud;
+@property (strong,nonatomic) NSArray * editorsPicks;
 
 - (IBAction)showMenu:(id)sender;
+- (IBAction)reviewEditorPicks:(id)sender;
+
 
 @end
 
@@ -33,11 +39,12 @@
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    MOExpert *wenlin = [[MOExpert alloc]initWithUserId:@"zlUNHVRCEX" name:@"张sir" avatar:[UIImage imageNamed:@"wenlin"] description:@"清新口味,卖萌常客"];
+     MOExpert *neo = [[MOExpert alloc]initWithUserId:@"ZTLhLSzDf2"  name:@"尼奥" avatar:[UIImage imageNamed:@"neo"] description:@"理性调情,感性吸引"];
+     MOExpert *chuan = [[MOExpert alloc]initWithUserId:@"DrIepaI8DF"   name:@"川川" avatar:[UIImage imageNamed:@"hi"] description:@"女性的视角,解读女性"];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.experts = @[wenlin,neo,chuan];
+
     
 }
 
@@ -66,22 +73,38 @@
     [self.sideMenuViewController presentMenuViewController];
 }
 
+- (IBAction)reviewEditorPicks:(id)sender {
+    //获取当前expert
+    self.currentExpert = self.experts[[sender tag]];
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    [self.hud show:YES];
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:25.0f target:self selector:@selector(handleHudTimeout) userInfo:nil repeats:NO];
+    
+    PFUser *toUser = [PFQuery getUserObjectWithId:self.currentExpert.userId];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Message"];
+    [query whereKey:@"expert" equalTo:toUser];
+    query.limit = 5;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error && [objects count]) {
+            [timer invalidate];
+            [self.hud removeFromSuperview];
+            self.editorsPicks = [NSArray arrayWithArray:objects];
+            [self performSegueWithIdentifier:@"EditorsPicksSegue" sender:self];
+        }
+        
+    }];
+    
+    
+    
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    switch (indexPath.row) {
-        case 0:
-            self.toUserId = @"zlUNHVRCEX";
-            break;
-        case 1:
-            self.toUserId = @"ZTLhLSzDf2";
-            break;
-        case 2:
-            self.toUserId = @"DrIepaI8DF";
-            break;
-            
-        default:
-            break;
-    }
+    self.toUserId = [(MOExpert*)self.experts[indexPath.row] userId];
     
     [self performSegueWithIdentifier:@"SelectQuestionTypeSegue" sender:self];
     
@@ -97,8 +120,17 @@
     id dvc = segue.destinationViewController;
     if ([segue.identifier isEqualToString:@"SelectQuestionTypeSegue"]) {
         [dvc setValue:self.toUserId forKey:@"toUserId"];
+    } else if ([segue.identifier isEqualToString:@"EditorsPicksSegue"]){
+        [dvc setValue:self.currentExpert forKey:@"expert"];
+        [dvc setValue:self.editorsPicks forKey:@"dataSource"];
     }
 }
 
+- (void)handleHudTimeout{
+    
+    self.hud.mode = MBProgressHUDModeText;
+	self.hud.labelText = @"网络连接有问题";
+    [self.hud hide:YES afterDelay:3];
+}
 
 @end

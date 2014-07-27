@@ -35,12 +35,14 @@
 		BD219E3018C0C82B003757A8 /* OpenerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD219E2F18C0C82B003757A8 /* OpenerView.m */; };
 		BD24E9E2194EA64E006C781C /* AdvertisementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD24E9E1194EA64E006C781C /* AdvertisementViewController.m */; };
 		BD24E9E4194EFF10006C781C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD24E9E3194EFF10006C781C /* XCTest.framework */; };
+		BD30BC78198280FB00872BDF /* MOExpert.m in Sources */ = {isa = PBXBuildFile; fileRef = BD30BC77198280FB00872BDF /* MOExpert.m */; };
+		BD30BC7A1982AAF200872BDF /* messageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD30BC791982AAF200872BDF /* messageView.xib */; };
+		BD30BC7D1982AD5B00872BDF /* MessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD30BC7C1982AD5B00872BDF /* MessageView.m */; };
 		BD31B72017A2F00D00B6135C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD31B71F17A2F00D00B6135C /* Accelerate.framework */; };
 		BD382FD71942193F00ED1524 /* ExpertMessageDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD382FD61942193F00ED1524 /* ExpertMessageDetailTableViewController.m */; };
 		BD382FDB1945F4D100ED1524 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD382FD91945F4D100ED1524 /* libMobClickLibrary.a */; };
 		BD382FDD1945F4F900ED1524 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD382FDC1945F4F900ED1524 /* libz.dylib */; };
 		BD38C00517A6B3B5007DA2DA /* MultiChoiceLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD38C00417A6B3B5007DA2DA /* MultiChoiceLoginViewController.m */; };
-		BD598CFC1982556C00243D3F /* HistoryContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD598CFB1982556C00243D3F /* HistoryContentViewController.m */; };
 		BD5ABE9718ED9F1700ED6046 /* MessageMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5ABE9618ED9F1700ED6046 /* MessageMasterViewController.m */; };
 		BD5ABE9A18ED9F3100ED6046 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5ABE9918ED9F3100ED6046 /* MessageCell.m */; };
 		BD65C2D318B8D22700AEE72C /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD65C2D018B8D22700AEE72C /* RootViewController.m */; };
@@ -49,6 +51,8 @@
 		BD65C2DC18B8E91E00AEE72C /* login-1.png in Resources */ = {isa = PBXBuildFile; fileRef = BD65C2DA18B8E91E00AEE72C /* login-1.png */; };
 		BD65C2E018B8E97700AEE72C /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD65C2DF18B8E97700AEE72C /* HomeViewController.m */; };
 		BD65C2E318B8EA1400AEE72C /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD65C2E218B8EA1400AEE72C /* WelcomeViewController.m */; };
+		BD69BD04198345F200535B3E /* menuHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD69BD03198345F200535B3E /* menuHeaderView.xib */; };
+		BD69BD071983463B00535B3E /* menuHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD69BD061983463B00535B3E /* menuHeaderView.m */; };
 		BD84960718BD016000F7DD97 /* FaceppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8495D518BD016000F7DD97 /* FaceppAPI.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BD84960818BD016000F7DD97 /* FaceppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8495D818BD016000F7DD97 /* FaceppClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BD84960918BD016000F7DD97 /* FaceppDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8495DA18BD016000F7DD97 /* FaceppDetection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -148,6 +152,11 @@
 		BD24E9E0194EA64E006C781C /* AdvertisementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvertisementViewController.h; sourceTree = "<group>"; };
 		BD24E9E1194EA64E006C781C /* AdvertisementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvertisementViewController.m; sourceTree = "<group>"; };
 		BD24E9E3194EFF10006C781C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		BD30BC76198280FB00872BDF /* MOExpert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOExpert.h; sourceTree = "<group>"; };
+		BD30BC77198280FB00872BDF /* MOExpert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOExpert.m; sourceTree = "<group>"; };
+		BD30BC791982AAF200872BDF /* messageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = messageView.xib; sourceTree = "<group>"; };
+		BD30BC7B1982AD5B00872BDF /* MessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageView.h; sourceTree = "<group>"; };
+		BD30BC7C1982AD5B00872BDF /* MessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageView.m; sourceTree = "<group>"; };
 		BD31B71F17A2F00D00B6135C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		BD382FD51942193F00ED1524 /* ExpertMessageDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpertMessageDetailTableViewController.h; sourceTree = "<group>"; };
 		BD382FD61942193F00ED1524 /* ExpertMessageDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpertMessageDetailTableViewController.m; sourceTree = "<group>"; };
@@ -156,8 +165,6 @@
 		BD382FDC1945F4F900ED1524 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BD38C00317A6B3B5007DA2DA /* MultiChoiceLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiChoiceLoginViewController.h; sourceTree = "<group>"; };
 		BD38C00417A6B3B5007DA2DA /* MultiChoiceLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiChoiceLoginViewController.m; sourceTree = "<group>"; };
-		BD598CFA1982556C00243D3F /* HistoryContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryContentViewController.h; sourceTree = "<group>"; };
-		BD598CFB1982556C00243D3F /* HistoryContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryContentViewController.m; sourceTree = "<group>"; };
 		BD5ABE9518ED9F1700ED6046 /* MessageMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMasterViewController.h; sourceTree = "<group>"; };
 		BD5ABE9618ED9F1700ED6046 /* MessageMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMasterViewController.m; sourceTree = "<group>"; };
 		BD5ABE9818ED9F3100ED6046 /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
@@ -172,6 +179,9 @@
 		BD65C2DF18B8E97700AEE72C /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		BD65C2E118B8EA1400AEE72C /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		BD65C2E218B8EA1400AEE72C /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		BD69BD03198345F200535B3E /* menuHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = menuHeaderView.xib; sourceTree = "<group>"; };
+		BD69BD051983463B00535B3E /* menuHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuHeaderView.h; sourceTree = "<group>"; };
+		BD69BD061983463B00535B3E /* menuHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuHeaderView.m; sourceTree = "<group>"; };
 		BD8495D418BD016000F7DD97 /* FaceppAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceppAPI.h; sourceTree = "<group>"; };
 		BD8495D518BD016000F7DD97 /* FaceppAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceppAPI.m; sourceTree = "<group>"; };
 		BD8495D718BD016000F7DD97 /* FaceppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceppClient.h; sourceTree = "<group>"; };
@@ -368,6 +378,7 @@
 		0DB386ED17605D8400D07C57 /* MagicOpener */ = {
 			isa = PBXGroup;
 			children = (
+				BD30BC75198280DC00872BDF /* Models */,
 				BD65C2D818B8E78D00AEE72C /* Assets */,
 				BD65C2D718B8D29500AEE72C /* Views */,
 				BD65C2D618B8D23C00AEE72C /* Controllers */,
@@ -430,8 +441,6 @@
 				BDB0A89718D4AF0A0021BCFE /* SubmitViewController.m */,
 				BDF1F8E0198216560005D395 /* SelectQuestionTypeTableViewController.h */,
 				BDF1F8E1198216560005D395 /* SelectQuestionTypeTableViewController.m */,
-				BD598CFA1982556C00243D3F /* HistoryContentViewController.h */,
-				BD598CFB1982556C00243D3F /* HistoryContentViewController.m */,
 				BDB9C23819825C000000F3F5 /* HistoryViewController.h */,
 				BDB9C23919825C000000F3F5 /* HistoryViewController.m */,
 			);
@@ -445,6 +454,15 @@
 				BD24E9E1194EA64E006C781C /* AdvertisementViewController.m */,
 			);
 			name = Advert;
+			sourceTree = "<group>";
+		};
+		BD30BC75198280DC00872BDF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BD30BC76198280FB00872BDF /* MOExpert.h */,
+				BD30BC77198280FB00872BDF /* MOExpert.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		BD382FD81945F4C100ED1524 /* UMeng */ = {
@@ -506,6 +524,10 @@
 				BD5ABE9918ED9F3100ED6046 /* MessageCell.m */,
 				BD219E2E18C0C82B003757A8 /* OpenerView.h */,
 				BD219E2F18C0C82B003757A8 /* OpenerView.m */,
+				BD30BC7B1982AD5B00872BDF /* MessageView.h */,
+				BD30BC7C1982AD5B00872BDF /* MessageView.m */,
+				BD69BD051983463B00535B3E /* menuHeaderView.h */,
+				BD69BD061983463B00535B3E /* menuHeaderView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -520,6 +542,8 @@
 				BD65C2D918B8E91E00AEE72C /* login-2.png */,
 				BD65C2DA18B8E91E00AEE72C /* login-1.png */,
 				BD219E2C18C0B56A003757A8 /* ItemView.xib */,
+				BD30BC791982AAF200872BDF /* messageView.xib */,
+				BD69BD03198345F200535B3E /* menuHeaderView.xib */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -798,6 +822,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD69BD04198345F200535B3E /* menuHeaderView.xib in Resources */,
 				BDD79D3E194C86C20072F7A8 /* IntroPage4.xib in Resources */,
 				BDF792ED17D60D8600E0A24E /* club.png in Resources */,
 				0DB386F217605D8400D07C57 /* InfoPlist.strings in Resources */,
@@ -822,6 +847,7 @@
 				BD65C2DC18B8E91E00AEE72C /* login-1.png in Resources */,
 				BDB80EEE17B24FE50055DF16 /* copy@2x.png in Resources */,
 				BDC7723B17B2713300815AC7 /* 37x-Checkmark.png in Resources */,
+				BD30BC7A1982AAF200872BDF /* messageView.xib in Resources */,
 				0D6DAB151764B4950043140D /* pause.png in Resources */,
 				0D6DAB161764B4950043140D /* start.png in Resources */,
 				BDB7FF7A19398DC500C1C6ED /* foregroundStar@2x.png in Resources */,
@@ -885,6 +911,7 @@
 				BD84961918BD016000F7DD97 /* NSDictionary_JSONExtensions.m in Sources */,
 				BD84960818BD016000F7DD97 /* FaceppClient.m in Sources */,
 				BDE4540E193096B600F6531B /* NSDictionary_DeepMutableCopy.m in Sources */,
+				BD69BD071983463B00535B3E /* menuHeaderView.m in Sources */,
 				BDE454121930978700F6531B /* ArticleDetailViewController.m in Sources */,
 				BDB7FF701939877C00C1C6ED /* TQStarRatingView.m in Sources */,
 				BD5ABE9718ED9F1700ED6046 /* MessageMasterViewController.m in Sources */,
@@ -907,6 +934,7 @@
 				BD65C2E318B8EA1400AEE72C /* WelcomeViewController.m in Sources */,
 				BD65C2D418B8D22700AEE72C /* MenuViewController.m in Sources */,
 				0DB386F817605D8400D07C57 /* AppDelegate.m in Sources */,
+				BD30BC78198280FB00872BDF /* MOExpert.m in Sources */,
 				BD84961C18BD016000F7DD97 /* CJSONSerializer.m in Sources */,
 				BD84960718BD016000F7DD97 /* FaceppAPI.m in Sources */,
 				BDDDA80D17A49A49001DCDBF /* XCDFormInputAccessoryView.m in Sources */,
@@ -918,6 +946,7 @@
 				BD84960C18BD016000F7DD97 /* FaceppGrouping.m in Sources */,
 				BD84961018BD016000F7DD97 /* FaceppTrainer.m in Sources */,
 				BDB9C23A19825C000000F3F5 /* HistoryViewController.m in Sources */,
+				BD30BC7D1982AD5B00872BDF /* MessageView.m in Sources */,
 				BD84961518BD016000F7DD97 /* CJSONDeserializer_BlocksExtensions.m in Sources */,
 				BDD79D36194C85EF0072F7A8 /* IntroViewController.m in Sources */,
 				0D6DAB171764B4950043140D /* JingRoundView.m in Sources */,
@@ -936,7 +965,6 @@
 				BD84960B18BD016000F7DD97 /* FaceppGroup.m in Sources */,
 				BD05EF3C17A1736100BC4E2F /* LoginViewController.m in Sources */,
 				BD84961A18BD016000F7DD97 /* CJSONDeserializer.m in Sources */,
-				BD598CFC1982556C00243D3F /* HistoryContentViewController.m in Sources */,
 				BD84960F18BD016000F7DD97 /* FaceppRecognition.m in Sources */,
 				BD84961318BD016000F7DD97 /* CDataScanner.m in Sources */,
 			);

@@ -8,7 +8,7 @@
 
 #import "MenuViewController.h"
 #import "UIViewController+RESideMenu.h"
-
+#import "menuHeaderView.h"
 
 @interface MenuViewController ()
 
@@ -34,9 +34,9 @@
 {
     [super viewDidLoad];
     self.sideMenuViewController.parallaxEnabled = NO;
-    self.sideMenuViewController.contentViewScaleValue = 0.7f;
+    self.sideMenuViewController.contentViewScaleValue = 0.8f;
     self.sideMenuViewController.panFromEdge = YES;
-    //self.sideMenuViewController.contentViewInLandscapeOffsetCenterX = CGRectGetHeight(self.view.frame) + 30.f;
+    self.sideMenuViewController.contentViewInLandscapeOffsetCenterX = CGRectGetHeight(self.view.frame) - 30.f;
     self.sideMenuViewController.delegate = self;
 
 }
@@ -124,39 +124,93 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UINavigationController *navigationController = (UINavigationController *)self.sideMenuViewController.contentViewController;
     id dvc = [self.storyboard instantiateViewControllerWithIdentifier:@"HomeViewController"];
+    //工具
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+                navigationController.viewControllers = @[dvc];
+                [self.sideMenuViewController hideMenuViewController];
+                break;
+            /*
+            case 1:
+                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"SelectMyExpertViewController"]];
+                [self.sideMenuViewController hideMenuViewController];
+                break;
+             */
+            
+            default:
+                break;
+        }
+    }
     
-    switch (indexPath.row) {
+    //求助
+    if (indexPath.section == 1) {
+        switch (indexPath.row) {
+            case 0:
+                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"SelectMyExpertViewController"]];
+                [self.sideMenuViewController hideMenuViewController];
+                break;
+            case 1:
+                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"MessageViewController"]];
+                [self.sideMenuViewController hideMenuViewController];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    //关于
+    if (indexPath.section == 2) {
+        switch (indexPath.row) {
+            case 0:
+                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"IntroViewController"]];
+                [self.sideMenuViewController hideMenuViewController];
+                break;
+            case 1:
+                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"FeedBackViewController"]];
+                [self.sideMenuViewController hideMenuViewController];
+                break;
+            /*
+             case 6:
+             navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"AdvertisementViewController"]];
+             [self.sideMenuViewController hideMenuViewController];
+             break;
+             */
+                
+            default:
+                break;
+        }
+    }
+    
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    menuHeaderView *view = [[NSBundle mainBundle] loadNibNamed:@"menuHeaderView" owner:self options:nil][0];
+    
+    switch (section) {
         case 0:
-            navigationController.viewControllers = @[dvc];
-            [self.sideMenuViewController hideMenuViewController];
+            view.titleLabel.text = @"工具";
             break;
         case 1:
-            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"SelectMyExpertViewController"]];
-            [self.sideMenuViewController hideMenuViewController];
+            view.titleLabel.text = @"求助";
             break;
         case 2:
-            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"MessageViewController"]];
-            [self.sideMenuViewController hideMenuViewController];
+            view.titleLabel.text = @"关于";
             break;
-        case 4:
-            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"IntroViewController"]];
-            [self.sideMenuViewController hideMenuViewController];
-            break;
-        case 5:
-            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"FeedBackViewController"]];
-            [self.sideMenuViewController hideMenuViewController];
-            break;
-            /*
-        case 6:
-            navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"AdvertisementViewController"]];
-            [self.sideMenuViewController hideMenuViewController];
-            break;
-             */
-
             
         default:
             break;
     }
+    
+    return view;
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 60.0;
 }
 
 - (void)presentMessageViewController{

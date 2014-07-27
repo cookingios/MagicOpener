@@ -369,6 +369,7 @@
     
 }
 
+#pragma mark - swipeView dataSource
 - (NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
 {
     //generate 100 item views
@@ -406,6 +407,7 @@
     return view;
 }
 
+#pragma mark - swipeView delegate
 - (void)swipeViewCurrentItemIndexDidChange:(SwipeView *)swipeView{
     
     if ([self.dataSource[0] isKindOfClass:[PFObject class]]) {
