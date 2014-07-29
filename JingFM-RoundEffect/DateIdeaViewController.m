@@ -11,7 +11,11 @@
 
 @interface DateIdeaViewController ()
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *relationshipTypeSegment;
+
 - (IBAction)showMenu:(id)sender;
+- (IBAction)refreshDatePlan:(id)sender;
+
 
 @end
 
@@ -52,6 +56,11 @@
 - (IBAction)showMenu:(id)sender {
     
     [self.sideMenuViewController presentMenuViewController];
+}
+
+- (IBAction)refreshDatePlan:(id)sender {
+    
+    
     
 }
 @end
