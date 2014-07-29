@@ -50,6 +50,17 @@
     return self;
 }
 
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+    
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.dataSource =@[@{@"about":@"根据你要搭讪的对象照片，约会助手将帮你分析她的年龄，衣着和配饰等因素，挑选最合适的三个开场白；\n \n用户上传头像照片将放在本地,不会上传至服务器."}];
+    }
+    return self;
+}
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -389,7 +400,7 @@
         //control events are bound to view controller in nib file
         //note that it is only safe to use the reusingView if we return the same nib for each
         //item view, if different items have different contents, ignore the reusingView value
-    	view = [[NSBundle mainBundle] loadNibNamed:@"ItemView" owner:self options:nil][0];
+    	view = [[NSBundle mainBundle] loadNibNamed:@"OpenerView" owner:self options:nil][0];
         
     }
     if ([self.dataSource[index] isKindOfClass:[PFObject class]]) {
@@ -402,6 +413,14 @@
             [view.freeChanceButton setTitle:[NSString stringWithFormat:@"免费查看(%@)",[[PFUser currentUser] objectForKey:@"freeChance"]] forState:UIControlStateNormal];
         }
         */
+    }else {
+        view.openerTextView.text = [self.dataSource[0] objectForKey:@"about"];
+        view.openerTextView.font = [UIFont systemFontOfSize:16];
+        view.openerTextView.textColor = [UIColor lightGrayColor];
+        view.openerTextView.backgroundColor = [UIColor clearColor];
+        view.backgroundColor = [UIColor clearColor];
+        view.descriptionTextView.backgroundColor = [UIColor clearColor];
+        
     }
     
     return view;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface menuHeaderView : UIView
+@interface MenuHeaderView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 

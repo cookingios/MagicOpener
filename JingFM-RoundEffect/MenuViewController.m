@@ -8,7 +8,7 @@
 
 #import "MenuViewController.h"
 #import "UIViewController+RESideMenu.h"
-#import "menuHeaderView.h"
+#import "MenuHeaderView.h"
 
 @interface MenuViewController ()
 
@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
     self.sideMenuViewController.parallaxEnabled = NO;
-    self.sideMenuViewController.contentViewScaleValue = 0.8f;
+    self.sideMenuViewController.contentViewScaleValue = 1.0f;
     self.sideMenuViewController.panFromEdge = YES;
     self.sideMenuViewController.contentViewInLandscapeOffsetCenterX = CGRectGetHeight(self.view.frame) - 30.f;
     self.sideMenuViewController.delegate = self;
@@ -131,12 +131,12 @@
                 navigationController.viewControllers = @[dvc];
                 [self.sideMenuViewController hideMenuViewController];
                 break;
-            /*
+            
             case 1:
-                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"SelectMyExpertViewController"]];
+                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"DateIdeaViewController"]];
                 [self.sideMenuViewController hideMenuViewController];
                 break;
-             */
+             
             
             default:
                 break;
@@ -187,7 +187,7 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    menuHeaderView *view = [[NSBundle mainBundle] loadNibNamed:@"menuHeaderView" owner:self options:nil][0];
+    MenuHeaderView *view = [[NSBundle mainBundle] loadNibNamed:@"MenuHeaderView" owner:self options:nil][0];
     
     switch (section) {
         case 0:

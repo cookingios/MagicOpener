@@ -74,7 +74,7 @@
 {
     if (!view)
     {
-    	view = [[NSBundle mainBundle] loadNibNamed:@"messageView" owner:self options:nil][0];
+    	view = [[NSBundle mainBundle] loadNibNamed:@"MessageView" owner:self options:nil][0];
         
     }
     if ([self.dataSource[index] isKindOfClass:[PFObject class]]) {

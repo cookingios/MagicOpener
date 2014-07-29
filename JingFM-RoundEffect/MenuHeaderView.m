@@ -6,9 +6,9 @@
 //  Copyright (c) 2014年 isaced. All rights reserved.
 //
 
-#import "menuHeaderView.h"
+#import "MenuHeaderView.h"
 
-@implementation menuHeaderView
+@implementation MenuHeaderView
 
 - (id)initWithFrame:(CGRect)frame
 {
