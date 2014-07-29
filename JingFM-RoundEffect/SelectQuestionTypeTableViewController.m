@@ -54,7 +54,7 @@
             self.type = @"chat";
             break;
         case 1:
-            self.type = @"secret";
+            self.type = @"image";
             break;
         case 2:
             self.type = @"love";

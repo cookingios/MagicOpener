@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 
 - (IBAction)AskQuestion:(id)sender;
 
@@ -79,6 +80,7 @@
     if ([self.dataSource[index] isKindOfClass:[PFObject class]]) {
         view.questionLabel.text = [self.dataSource[index] objectForKey:@"problem"];
         view.answerLabel.text = [self.dataSource[index] objectForKey:@"reply"];
+        
     }
     
     return view;

@@ -17,17 +17,17 @@
 @interface HomeViewController (){
     MBProgressHUD *hud;
 }
-@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet SwipeView *swipeView;
-@property (weak, nonatomic) IBOutlet UILabel *hintLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *starImageView;
-@property (weak, nonatomic) IBOutlet UILabel *starDecorateLabel;
-@property (weak, nonatomic) IBOutlet UIButton *duplicateButton;
 
-
+@property (nonatomic) BOOL isFreeChanceUsing;
 @property (strong,nonatomic) NSArray *dataSource;
 @property (strong,nonatomic) NSNumber *life;
-@property (nonatomic) BOOL isFreeChanceUsing;
+
+@property (weak, nonatomic) IBOutlet SwipeView *swipeView;
+@property (weak, nonatomic) IBOutlet UIButton *duplicateButton;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *starImageView;
+@property (weak, nonatomic) IBOutlet UILabel *hintLabel;
+@property (weak, nonatomic) IBOutlet UILabel *starDecorateLabel;
 
 - (IBAction)showMenu:(id)sender;
 - (IBAction)freeLookUp:(id)sender;
