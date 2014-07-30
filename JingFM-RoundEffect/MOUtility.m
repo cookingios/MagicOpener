@@ -200,4 +200,43 @@
 }
 
 
++(BFTask*) fetchJsonWithURL:(NSURL*)url{
+    NSLog(@"Fetching: %@",url.absoluteString);
+    
+    BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
+    
+    NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!error) {
+            //TODO:Handle retrieved data
+            NSError *jsonError = nil;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
+            
+            NSLog(@"json is %@",[json description]);
+            
+            if (!jsonError) {
+                
+                if (![[json allKeys] containsObject:@"error"]) {
+                    [task setResult:json];
+                }else{
+                    NSError *error = [NSError errorWithDomain:nil code:[[json objectForKey:@"code"] intValue] userInfo:json];
+                    [task setError:error];
+                }
+                
+                
+            }else{
+                [task setError:jsonError];
+            }
+            
+        }else{
+            
+            [task setError:error];
+        }
+    }];
+    
+    //执行NSURLSession
+    [dataTask resume];
+    
+    return task.task;
+}
+
 @end

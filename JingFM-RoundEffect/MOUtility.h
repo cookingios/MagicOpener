@@ -35,6 +35,7 @@
 //Unicode 转为 UTF-8
 + (NSString *)replaceUnicode:(NSString *)unicodeStr;
 
-
+//网络连接
++(BFTask*) fetchJsonWithURL:(NSURL*)url;
 
 @end

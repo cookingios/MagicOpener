@@ -12,6 +12,8 @@
 @interface DateIdeaViewController ()
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *relationshipTypeSegment;
+@property (strong,nonatomic) PFGeoPoint *currentGeoPoint;
+
 
 - (IBAction)showMenu:(id)sender;
 - (IBAction)refreshDatePlan:(id)sender;
@@ -34,6 +36,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
+        if (!error) {
+            // do something with the new geoPoint
+            self.currentGeoPoint = geoPoint;
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法获取地理位置信息" message:@"请前往设置打开该选项" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,7 +55,6 @@
 
 /*
 #pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -59,6 +69,12 @@
 }
 
 - (IBAction)refreshDatePlan:(id)sender {
+    
+    if (!self.currentGeoPoint) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法获取地理位置信息" message:@"请前往设置打开该选项" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        return [alert show];
+    }
+    
     
     
     
