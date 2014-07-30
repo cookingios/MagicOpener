@@ -78,6 +78,8 @@
 		BD9B9A4317B7518D00827DC9 /* MOUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9B9A4217B7518D00827DC9 /* MOUtility.m */; };
 		BDB0A89418D477140021BCFE /* SelectMyExpertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB0A89318D477140021BCFE /* SelectMyExpertViewController.m */; };
 		BDB0A89818D4AF0A0021BCFE /* SubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB0A89718D4AF0A0021BCFE /* SubmitViewController.m */; };
+		BDB4E6271988F01D00960BAB /* DPAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E6231988F01D00960BAB /* DPAPI.m */; };
+		BDB4E6281988F01D00960BAB /* DPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E6251988F01D00960BAB /* DPRequest.m */; };
 		BDB6C5B519879F50004F5E47 /* DateIdeaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB6C5B419879F50004F5E47 /* DateIdeaViewController.m */; };
 		BDB7FF6D1939877C00C1C6ED /* backgroundStar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB7FF671939877C00C1C6ED /* backgroundStar@2x.png */; };
 		BDB7FF701939877C00C1C6ED /* TQStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB7FF6B1939877C00C1C6ED /* TQStarRatingView.m */; };
@@ -234,6 +236,11 @@
 		BDB0A89318D477140021BCFE /* SelectMyExpertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectMyExpertViewController.m; sourceTree = "<group>"; };
 		BDB0A89618D4AF0A0021BCFE /* SubmitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitViewController.h; sourceTree = "<group>"; };
 		BDB0A89718D4AF0A0021BCFE /* SubmitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitViewController.m; sourceTree = "<group>"; };
+		BDB4E6221988F01D00960BAB /* DPAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAPI.h; sourceTree = "<group>"; };
+		BDB4E6231988F01D00960BAB /* DPAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAPI.m; sourceTree = "<group>"; };
+		BDB4E6241988F01D00960BAB /* DPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPRequest.h; sourceTree = "<group>"; };
+		BDB4E6251988F01D00960BAB /* DPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPRequest.m; sourceTree = "<group>"; };
+		BDB4E6261988F01D00960BAB /* DPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPConstants.h; sourceTree = "<group>"; };
 		BDB6C5B319879F50004F5E47 /* DateIdeaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateIdeaViewController.h; sourceTree = "<group>"; };
 		BDB6C5B419879F50004F5E47 /* DateIdeaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateIdeaViewController.m; sourceTree = "<group>"; };
 		BDB7FF671939877C00C1C6ED /* backgroundStar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroundStar@2x.png"; sourceTree = "<group>"; };
@@ -399,6 +406,7 @@
 		0DB386EE17605D8400D07C57 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BDB4E6291988F02400960BAB /* DingPingAPI */,
 				BD382FD81945F4C100ED1524 /* UMeng */,
 				BDB7FF641939877C00C1C6ED /* TQStarRating */,
 				BDE453F91930964C00F6531B /* MGTemplateEngine */,
@@ -670,6 +678,18 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		BDB4E6291988F02400960BAB /* DingPingAPI */ = {
+			isa = PBXGroup;
+			children = (
+				BDB4E6221988F01D00960BAB /* DPAPI.h */,
+				BDB4E6231988F01D00960BAB /* DPAPI.m */,
+				BDB4E6241988F01D00960BAB /* DPRequest.h */,
+				BDB4E6251988F01D00960BAB /* DPRequest.m */,
+				BDB4E6261988F01D00960BAB /* DPConstants.h */,
+			);
+			name = DingPingAPI;
+			sourceTree = "<group>";
+		};
 		BDB6C5B219879F2B004F5E47 /* DateIdea */ = {
 			isa = PBXGroup;
 			children = (
@@ -922,6 +942,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD84961918BD016000F7DD97 /* NSDictionary_JSONExtensions.m in Sources */,
+				BDB4E6281988F01D00960BAB /* DPRequest.m in Sources */,
 				BD84960818BD016000F7DD97 /* FaceppClient.m in Sources */,
 				BDE4540E193096B600F6531B /* NSDictionary_DeepMutableCopy.m in Sources */,
 				BD69BD071983463B00535B3E /* MenuHeaderView.m in Sources */,
@@ -978,6 +999,7 @@
 				BD24E9E2194EA64E006C781C /* AdvertisementViewController.m in Sources */,
 				BD84960B18BD016000F7DD97 /* FaceppGroup.m in Sources */,
 				BD05EF3C17A1736100BC4E2F /* LoginViewController.m in Sources */,
+				BDB4E6271988F01D00960BAB /* DPAPI.m in Sources */,
 				BD84961A18BD016000F7DD97 /* CJSONDeserializer.m in Sources */,
 				BD84960F18BD016000F7DD97 /* FaceppRecognition.m in Sources */,
 				BD84961318BD016000F7DD97 /* CDataScanner.m in Sources */,
