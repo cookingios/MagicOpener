@@ -8,12 +8,14 @@
 
 #import "DateIdeaViewController.h"
 #import <RESideMenu/RESideMenu.h>
+#import "DPAPI.h"
 
-@interface DateIdeaViewController ()
+@interface DateIdeaViewController ()<DPRequestDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *relationshipTypeSegment;
 @property (strong,nonatomic) PFGeoPoint *currentGeoPoint;
-
+@property (strong,nonatomic) NSDictionary *currentPlanDataSource;
+@property (readonly,nonatomic) DPAPI *dpApi;
 
 - (IBAction)showMenu:(id)sender;
 - (IBAction)refreshDatePlan:(id)sender;
@@ -75,11 +77,19 @@
         return [alert show];
     }
     
-    
-    
-    //[MOUtility fetchJsonWithURL:]
-    
-    
-    
+    [[[MOManager sharedManager] dpApi] requestWithURL:@"v1/business/find_businesses" paramsString:@"city=北京&region=海淀区&category=火锅&has_coupon=1&sort=2&limit=20" delegate:self];
 }
+
+#pragma mark - dpRequest delegate
+- (void)request:(DPRequest *)request didFailWithError:(NSError *)error {
+	
+
+    NSLog(@"Error从大众点评返回：%@",[error description]);
+}
+
+- (void)request:(DPRequest *)request didFinishLoadingWithResult:(id)result {
+    
+	NSLog(@"成功从大众点评返回：%@",[result description]);
+}
+
 @end

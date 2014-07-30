@@ -13,6 +13,7 @@
     #import <Foundation/Foundation.h>
     #import <Parse/Parse.h>
     #import "MOUtility.h"
+    #import "MOManager.h"
     #import "MBProgressHUD.h"
     #import <TSMessage.h>
     #import <MRProgress/MRProgress.h>

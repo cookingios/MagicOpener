@@ -80,6 +80,7 @@
 		BDB0A89818D4AF0A0021BCFE /* SubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB0A89718D4AF0A0021BCFE /* SubmitViewController.m */; };
 		BDB4E6271988F01D00960BAB /* DPAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E6231988F01D00960BAB /* DPAPI.m */; };
 		BDB4E6281988F01D00960BAB /* DPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E6251988F01D00960BAB /* DPRequest.m */; };
+		BDB4E62C1988F34D00960BAB /* MOManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E62B1988F34D00960BAB /* MOManager.m */; };
 		BDB6C5B519879F50004F5E47 /* DateIdeaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB6C5B419879F50004F5E47 /* DateIdeaViewController.m */; };
 		BDB7FF6D1939877C00C1C6ED /* backgroundStar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB7FF671939877C00C1C6ED /* backgroundStar@2x.png */; };
 		BDB7FF701939877C00C1C6ED /* TQStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB7FF6B1939877C00C1C6ED /* TQStarRatingView.m */; };
@@ -241,6 +242,8 @@
 		BDB4E6241988F01D00960BAB /* DPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPRequest.h; sourceTree = "<group>"; };
 		BDB4E6251988F01D00960BAB /* DPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPRequest.m; sourceTree = "<group>"; };
 		BDB4E6261988F01D00960BAB /* DPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPConstants.h; sourceTree = "<group>"; };
+		BDB4E62A1988F34D00960BAB /* MOManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOManager.h; sourceTree = "<group>"; };
+		BDB4E62B1988F34D00960BAB /* MOManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOManager.m; sourceTree = "<group>"; };
 		BDB6C5B319879F50004F5E47 /* DateIdeaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateIdeaViewController.h; sourceTree = "<group>"; };
 		BDB6C5B419879F50004F5E47 /* DateIdeaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateIdeaViewController.m; sourceTree = "<group>"; };
 		BDB7FF671939877C00C1C6ED /* backgroundStar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backgroundStar@2x.png"; sourceTree = "<group>"; };
@@ -574,6 +577,8 @@
 			children = (
 				BD9B9A4117B7518D00827DC9 /* MOUtility.h */,
 				BD9B9A4217B7518D00827DC9 /* MOUtility.m */,
+				BDB4E62A1988F34D00960BAB /* MOManager.h */,
+				BDB4E62B1988F34D00960BAB /* MOManager.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -964,6 +969,7 @@
 				BDB6C5B519879F50004F5E47 /* DateIdeaViewController.m in Sources */,
 				BDD79D41194C8CB20072F7A8 /* FeedBackViewController.m in Sources */,
 				BD65C2E018B8E97700AEE72C /* HomeViewController.m in Sources */,
+				BDB4E62C1988F34D00960BAB /* MOManager.m in Sources */,
 				BDE4541C19377B0300F6531B /* MessageDetailTableViewController.m in Sources */,
 				BD38C00517A6B3B5007DA2DA /* MultiChoiceLoginViewController.m in Sources */,
 				BD65C2E318B8EA1400AEE72C /* WelcomeViewController.m in Sources */,
