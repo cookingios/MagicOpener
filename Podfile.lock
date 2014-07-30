@@ -4,11 +4,14 @@ PODS:
   - BZGFormField (1.1.2)
   - EAIntroView (2.6.1)
   - FaceAwareFill (1.0)
-  - Facebook-iOS-SDK (3.16.1):
+  - Facebook-iOS-SDK (3.16.2):
     - Bolts
   - HexColors (2.2.1)
   - JSAnimatedImagesView (1.0.0):
     - MSWeakTimer (~> 1.0)
+  - Mantle (1.5):
+    - Mantle/extobjc
+  - Mantle/extobjc (1.5)
   - MBProgressHUD (0.8)
   - MRProgress (0.5.0):
     - MRProgress/ActivityIndicator
@@ -67,6 +70,7 @@ DEPENDENCIES:
   - EAIntroView
   - FaceAwareFill
   - JSAnimatedImagesView
+  - Mantle
   - MBProgressHUD
   - MRProgress (~> 0.3)
   - Parse-iOS-SDK
@@ -83,9 +87,10 @@ SPEC CHECKSUMS:
   BZGFormField: c469a07c251a9fd8bd8d8fce023896b15d752a99
   EAIntroView: 809dc4c9e8006390340c33346870e7b7bb52fe02
   FaceAwareFill: ea87c5a2c50b29b6836442d88af851d1eb1f13b4
-  Facebook-iOS-SDK: 594f0e2398fe62b0a44b6f7ae113c7795cfabfa4
+  Facebook-iOS-SDK: 34eef640c2cc4c8618ba0f574ad2b290e07f1b4e
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
   JSAnimatedImagesView: 31ca5031b5de56380ef3df1ad4a60f154aa11ab3
+  Mantle: c67a7e45e14196ed42b2a7cbb98ff6a9920e6b92
   MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
   MRProgress: 0f0a200c2c211d2dfb83ac31aa2c117dca07db57
   MSWeakTimer: 6bd071c058fd49daa62013e4ae70caf61d0f2dc2
