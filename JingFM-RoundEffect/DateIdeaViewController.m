@@ -76,8 +76,11 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法获取地理位置信息" message:@"请前往设置打开该选项" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         return [alert show];
     }
+    NSString *latitude = [NSString stringWithFormat:@"%f",self.currentGeoPoint.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f",self.currentGeoPoint.longitude];
+    NSString *paramsString = [NSString stringWithFormat:@"category=美食&sort=4&limit=5&latitude=%@&longitude=%@",latitude,longitude];
     
-    [[[MOManager sharedManager] dpApi] requestWithURL:@"v1/business/find_businesses" paramsString:@"city=北京&region=海淀区&category=火锅&has_coupon=1&sort=2&limit=20" delegate:self];
+    [[[MOManager sharedManager] dpApi] requestWithURL:@"v1/business/find_businesses" paramsString:paramsString delegate:self];
 }
 
 #pragma mark - dpRequest delegate
