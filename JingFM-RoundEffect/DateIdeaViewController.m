@@ -46,8 +46,8 @@
         //Custom initialization
         DateIdeaItem *place = [[DateIdeaItem alloc] initWithTitle:@"约会地点" imageName:@"date-icon-place"];
         DateIdeaItem *opener = [[DateIdeaItem alloc] initWithTitle:@"开场白" imageName:@"date-icon-opener"];
-        DateIdeaItem *topic = [[DateIdeaItem alloc] initWithTitle:@"约会话题" imageName:@"date-icon-topic"];
-        DateIdeaItem *goodbye = [[DateIdeaItem alloc] initWithTitle:@"告别句式" imageName:@"date-icon-goodbuy"];
+        DateIdeaItem *topic = [[DateIdeaItem alloc] initWithTitle:@"聊天话题" imageName:@"date-icon-topic"];
+        DateIdeaItem *goodbye = [[DateIdeaItem alloc] initWithTitle:@"互动点子" imageName:@"date-icon-interact"];
         
         self.datasource = @[place,opener,topic,goodbye];
         
@@ -118,12 +118,39 @@
         queryTopic.skip = (int)random % 25;
         queryTopic.limit = 1;
         
-        [[MOUtility findAsync:queryTopic] continueWithSuccessBlock:^id(BFTask *task) {
+        PFQuery *queryOpener = [PFQuery queryWithClassName:@"Opener"];
+        [queryOpener whereKey:@"scene" equalTo:@"date"];
+        queryOpener.skip = (int)random % 15;
+        queryOpener.limit = 1;
+        
+        PFQuery *queryInteract = [PFQuery queryWithClassName:@"DateIdea"];
+        [queryInteract whereKey:@"available" equalTo:[NSNumber numberWithBool:YES]];
+        queryInteract.skip = (int)random % 23;
+        queryInteract.limit = 1;
+        
+        [[[[MOUtility findAsync:queryTopic] continueWithSuccessBlock:^id(BFTask *task) {
             
             NSArray *result = task.result;
             PFObject *topic = result[0];
             [(DateIdeaItem*)self.datasource[2] setContent:[topic objectForKey:@"topic"]];
             [(DateIdeaItem*)self.datasource[2] setDescription:[topic objectForKey:@"description"]];
+            
+            
+            
+            return [MOUtility findAsync:queryOpener];
+        }] continueWithSuccessBlock:^id(BFTask *task) {
+            
+            NSArray *result = task.result;
+            PFObject *opener = result[0];
+            [(DateIdeaItem*)self.datasource[1] setContent:[opener objectForKey:@"opener"]];
+            [(DateIdeaItem*)self.datasource[1] setDescription:[opener objectForKey:@"description"]];
+            
+            return [MOUtility findAsync:queryInteract];
+        }] continueWithSuccessBlock:^id(BFTask *task) {
+            NSArray *result = task.result;
+            PFObject *interact = result[0];
+            [(DateIdeaItem*)self.datasource[3] setContent:[interact objectForKey:@"idea"]];
+            [(DateIdeaItem*)self.datasource[3] setDescription:[interact objectForKey:@"description"]];
             
             [self.tableView reloadData];
             
