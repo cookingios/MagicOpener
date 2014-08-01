@@ -80,6 +80,8 @@
 		BD9B9A4317B7518D00827DC9 /* MOUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9B9A4217B7518D00827DC9 /* MOUtility.m */; };
 		BDB0A89418D477140021BCFE /* SelectMyExpertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB0A89318D477140021BCFE /* SelectMyExpertViewController.m */; };
 		BDB0A89818D4AF0A0021BCFE /* SubmitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB0A89718D4AF0A0021BCFE /* SubmitViewController.m */; };
+		BDB4CE20198B315200707AC3 /* DateIdeaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4CE1F198B315200707AC3 /* DateIdeaCell.m */; };
+		BDB4CE23198B346700707AC3 /* DateIdeaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4CE22198B346700707AC3 /* DateIdeaItem.m */; };
 		BDB4E6271988F01D00960BAB /* DPAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E6231988F01D00960BAB /* DPAPI.m */; };
 		BDB4E6281988F01D00960BAB /* DPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E6251988F01D00960BAB /* DPRequest.m */; };
 		BDB4E62C1988F34D00960BAB /* MOManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E62B1988F34D00960BAB /* MOManager.m */; };
@@ -243,6 +245,10 @@
 		BDB0A89318D477140021BCFE /* SelectMyExpertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectMyExpertViewController.m; sourceTree = "<group>"; };
 		BDB0A89618D4AF0A0021BCFE /* SubmitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitViewController.h; sourceTree = "<group>"; };
 		BDB0A89718D4AF0A0021BCFE /* SubmitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitViewController.m; sourceTree = "<group>"; };
+		BDB4CE1E198B315200707AC3 /* DateIdeaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateIdeaCell.h; sourceTree = "<group>"; };
+		BDB4CE1F198B315200707AC3 /* DateIdeaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateIdeaCell.m; sourceTree = "<group>"; };
+		BDB4CE21198B346700707AC3 /* DateIdeaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateIdeaItem.h; sourceTree = "<group>"; };
+		BDB4CE22198B346700707AC3 /* DateIdeaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateIdeaItem.m; sourceTree = "<group>"; };
 		BDB4E6221988F01D00960BAB /* DPAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAPI.h; sourceTree = "<group>"; };
 		BDB4E6231988F01D00960BAB /* DPAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAPI.m; sourceTree = "<group>"; };
 		BDB4E6241988F01D00960BAB /* DPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPRequest.h; sourceTree = "<group>"; };
@@ -481,6 +487,8 @@
 				BD30BC77198280FB00872BDF /* MOExpert.m */,
 				BD1B37AE1989D3BD0073A7DD /* MOBusiness.h */,
 				BD1B37AF1989D3BD0073A7DD /* MOBusiness.m */,
+				BDB4CE21198B346700707AC3 /* DateIdeaItem.h */,
+				BDB4CE22198B346700707AC3 /* DateIdeaItem.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -549,6 +557,8 @@
 				BD30BC7C1982AD5B00872BDF /* MessageView.m */,
 				BD69BD051983463B00535B3E /* MenuHeaderView.h */,
 				BD69BD061983463B00535B3E /* MenuHeaderView.m */,
+				BDB4CE1E198B315200707AC3 /* DateIdeaCell.h */,
+				BDB4CE1F198B315200707AC3 /* DateIdeaCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -998,6 +1008,8 @@
 				BD84960C18BD016000F7DD97 /* FaceppGrouping.m in Sources */,
 				BD84961018BD016000F7DD97 /* FaceppTrainer.m in Sources */,
 				BDB9C23A19825C000000F3F5 /* HistoryViewController.m in Sources */,
+				BDB4CE23198B346700707AC3 /* DateIdeaItem.m in Sources */,
+				BDB4CE20198B315200707AC3 /* DateIdeaCell.m in Sources */,
 				BD30BC7D1982AD5B00872BDF /* MessageView.m in Sources */,
 				BD84961518BD016000F7DD97 /* CJSONDeserializer_BlocksExtensions.m in Sources */,
 				BDD79D36194C85EF0072F7A8 /* IntroViewController.m in Sources */,

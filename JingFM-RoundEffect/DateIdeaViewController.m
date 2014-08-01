@@ -10,13 +10,17 @@
 #import <RESideMenu/RESideMenu.h>
 #import "DPAPI.h"
 #import "MOBusiness.h"
+#import "DateIdeaCell.h"
+#import "DateIdeaItem.h"
 
 @interface DateIdeaViewController ()<DPRequestDelegate,UITableViewDataSource,UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *relationshipTypeSegment;
-@property (strong,nonatomic) PFGeoPoint *currentGeoPoint;
-@property (strong,nonatomic) MOBusiness *currentBusiness;
 @property (readonly,nonatomic) DPAPI *dpApi;
+@property (strong,nonatomic) MOBusiness *currentBusiness;
+@property (strong,nonatomic) NSArray *datasource;
+@property (strong,nonatomic) PFGeoPoint *currentGeoPoint;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *relationshipTypeSegment;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)showMenu:(id)sender;
 - (IBAction)refreshDatePlan:(id)sender;
@@ -35,6 +39,21 @@
     return self;
 }
 
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        //Custom initialization
+        DateIdeaItem *place = [[DateIdeaItem alloc] initWithTitle:@"约会地点" imageName:@"date-icon-place"];
+        DateIdeaItem *opener = [[DateIdeaItem alloc] initWithTitle:@"开场白" imageName:@"date-icon-opener"];
+        DateIdeaItem *topic = [[DateIdeaItem alloc] initWithTitle:@"约会话题" imageName:@"date-icon-topic"];
+        DateIdeaItem *goodbye = [[DateIdeaItem alloc] initWithTitle:@"告别句式" imageName:@"date-icon-goodbuy"];
+        
+        self.datasource = @[place,opener,topic,goodbye];
+        
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,6 +67,7 @@
             [alert show];
         }
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,11 +110,58 @@
         int random = arc4random() % (businesses.count-1);
         NSDictionary *business = businesses[random];
         self.currentBusiness = [MTLJSONAdapter modelOfClass:[MOBusiness class] fromJSONDictionary:business error:nil];
+        [(DateIdeaItem*)self.datasource[0] setContent:self.currentBusiness.name];
+        [(DateIdeaItem*)self.datasource[0] setDescription:self.currentBusiness.address];
+        
+        PFQuery *queryTopic = [PFQuery queryWithClassName:@"ChatTopic"];
+        [queryTopic whereKey:@"type" equalTo:@"first"];
+        queryTopic.skip = (int)random % 25;
+        queryTopic.limit = 1;
+        
+        [[MOUtility findAsync:queryTopic] continueWithSuccessBlock:^id(BFTask *task) {
+            
+            NSArray *result = task.result;
+            PFObject *topic = result[0];
+            [(DateIdeaItem*)self.datasource[2] setContent:[topic objectForKey:@"topic"]];
+            [(DateIdeaItem*)self.datasource[2] setDescription:[topic objectForKey:@"description"]];
+            
+            [self.tableView reloadData];
+            
+            return nil;
+        }];
+        
+        
     }
     
 }
 
 #pragma mark - tableview delegate
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return [self.datasource count];
+}
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *cellIdentifier = @"DateIdeaCell";
+    
+    DateIdeaCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[DateIdeaCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                  reuseIdentifier:cellIdentifier];
+    }
+    // Configure the cell to show todo item with a priority at the bottom
+    cell.titleLabel.text = [self.datasource[indexPath.row] title];
+    cell.contentLable.text = [self.datasource[indexPath.row] content];
+    cell.descriptionLabel.text = [self.datasource[indexPath.row] description];
+    cell.iconImageView.image = [UIImage imageNamed:[self.datasource[indexPath.row] imageName]];
+    
+    return cell;
+
+    
+}
+
 
 
 @end
