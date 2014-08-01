@@ -9,12 +9,13 @@
 #import "DateIdeaViewController.h"
 #import <RESideMenu/RESideMenu.h>
 #import "DPAPI.h"
+#import "MOBusiness.h"
 
-@interface DateIdeaViewController ()<DPRequestDelegate>
+@interface DateIdeaViewController ()<DPRequestDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *relationshipTypeSegment;
 @property (strong,nonatomic) PFGeoPoint *currentGeoPoint;
-@property (strong,nonatomic) NSDictionary *currentPlanDataSource;
+@property (strong,nonatomic) MOBusiness *currentBusiness;
 @property (readonly,nonatomic) DPAPI *dpApi;
 
 - (IBAction)showMenu:(id)sender;
@@ -55,16 +56,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (IBAction)showMenu:(id)sender {
     
     [self.sideMenuViewController presentMenuViewController];
@@ -78,7 +69,7 @@
     }
     NSString *latitude = [NSString stringWithFormat:@"%f",self.currentGeoPoint.latitude];
     NSString *longitude = [NSString stringWithFormat:@"%f",self.currentGeoPoint.longitude];
-    NSString *paramsString = [NSString stringWithFormat:@"category=美食&sort=4&limit=5&latitude=%@&longitude=%@",latitude,longitude];
+    NSString *paramsString = [NSString stringWithFormat:@"category=美食&sort=4&limit=10&latitude=%@&longitude=%@",latitude,longitude];
     
     [[[MOManager sharedManager] dpApi] requestWithURL:@"v1/business/find_businesses" paramsString:paramsString delegate:self];
 }
@@ -90,9 +81,20 @@
     NSLog(@"Error从大众点评返回：%@",[error description]);
 }
 
-- (void)request:(DPRequest *)request didFinishLoadingWithResult:(id)result {
+- (void)request:(DPRequest *)request didFinishLoadingWithResult:(NSDictionary*)result {
     
-	NSLog(@"成功从大众点评返回：%@",[result description]);
+	//NSLog(@"成功从大众点评返回：%@,地址是：%@",result[@"businesses"][0][@"name"],result[@"businesses"][0][@"address"]);
+    NSArray *businesses = result[@"businesses"];
+    
+    if (businesses.count>0) {
+        int random = arc4random() % (businesses.count-1);
+        NSDictionary *business = businesses[random];
+        self.currentBusiness = [MTLJSONAdapter modelOfClass:[MOBusiness class] fromJSONDictionary:business error:nil];
+    }
+    
 }
+
+#pragma mark - tableview delegate
+
 
 @end
