@@ -1314,8 +1314,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="初次见"/>
-                                    <segment title="友谊区"/>
-                                    <segment title="高温"/>
+                                    <segment title="有点熟"/>
+                                    <segment title="暧昧"/>
                                 </segments>
                                 <color key="tintColor" red="0.84576681389999997" green="0.10143913860000001" blue="0.061536417509999997" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
@@ -1326,13 +1326,33 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在加载中..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fBa-iP-qVO">
+                                <rect key="frame" x="90" y="242" width="140" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="86" sectionHeaderHeight="22" sectionFooterHeight="22" id="RXL-Ts-ULm">
                                 <rect key="frame" x="0.0" y="115" width="320" height="389"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="qvs-Bp-GMq">
-                                    <rect key="frame" x="0.0" y="108" width="320" height="1"/>
+                                    <rect key="frame" x="0.0" y="108" width="320" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商户数据:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="83e-pi-Fvh">
+                                            <rect key="frame" x="82" y="9" width="157" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dianping" id="7Lx-Hz-axA">
+                                            <rect key="frame" x="243" y="10" width="60" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
@@ -1392,7 +1412,6 @@
                                 <action selector="showMenu:" destination="eVX-Ss-E48" id="fYl-Y1-GgQ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="高级" id="6IV-gR-FuA"/>
                     </navigationItem>
                     <connections>
                         <outlet property="relationshipTypeSegment" destination="qZs-yO-TP5" id="kLD-yg-Iak"/>
@@ -1860,6 +1879,7 @@
         <image name="avatar-ph" width="180" height="180"/>
         <image name="copy.png" width="50" height="50"/>
         <image name="date-icon-place" width="120" height="120"/>
+        <image name="dianping" width="600" height="200"/>
         <image name="email" width="30" height="30"/>
         <image name="hi" width="250" height="242"/>
         <image name="login-bg" width="320" height="200"/>

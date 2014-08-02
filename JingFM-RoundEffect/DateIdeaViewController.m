@@ -87,11 +87,54 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法获取地理位置信息" message:@"请前往设置打开该选项" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         return [alert show];
     }
+    
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        self.tableView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        
+    }];
+    
     NSString *latitude = [NSString stringWithFormat:@"%f",self.currentGeoPoint.latitude];
     NSString *longitude = [NSString stringWithFormat:@"%f",self.currentGeoPoint.longitude];
-    NSString *paramsString = [NSString stringWithFormat:@"category=美食&sort=4&limit=10&latitude=%@&longitude=%@",latitude,longitude];
+    
+    NSString *basicString = [self paramsStringWithOptionIndex:self.relationshipTypeSegment.selectedSegmentIndex];
+    NSString *paramsString = [basicString stringByAppendingString:[NSString stringWithFormat:@"&latitude=%@&longitude=%@",latitude,longitude]];
     
     [[[MOManager sharedManager] dpApi] requestWithURL:@"v1/business/find_businesses" paramsString:paramsString delegate:self];
+}
+
+//约会地点根据情感关系配置
+-(NSString*)paramsStringWithOptionIndex:(NSInteger)index{
+    
+    NSString *params = nil;
+    switch (index) {
+        case 0:
+            params = @"category=面包甜点,咖啡,公园&limit=40&sort=1";
+            break;
+        case 1:
+            params = @"category=美食,电影院,运动健身&limit=40&sort=1";
+            break;
+        case 2:
+            params = @"category=酒店,KTV,足疗按摩,酒吧&limit=40&sort=1";
+            break;
+            
+        default:
+            break;
+    }
+    return params;
+}
+
+//约会话题根据情感关系配置
+-(PFQuery*)queryTopicWithOptionIndex:(NSInteger)index{
+    
+
+}
+
+//约会互动根据情感关系配置
+-(PFQuery*)queryInteractWithOptionIndex:(NSInteger)index{
+    
+    
 }
 
 #pragma mark - dpRequest delegate
@@ -107,25 +150,28 @@
     NSArray *businesses = result[@"businesses"];
     
     if (businesses.count>0) {
-        int random = arc4random() % (businesses.count-1);
-        NSDictionary *business = businesses[random];
+        int random1 = arc4random() % businesses.count;
+        NSDictionary *business = businesses[random1];
         self.currentBusiness = [MTLJSONAdapter modelOfClass:[MOBusiness class] fromJSONDictionary:business error:nil];
         [(DateIdeaItem*)self.datasource[0] setContent:self.currentBusiness.name];
         [(DateIdeaItem*)self.datasource[0] setDescription:self.currentBusiness.address];
         
+        int random2 = arc4random() % 26;
         PFQuery *queryTopic = [PFQuery queryWithClassName:@"ChatTopic"];
         [queryTopic whereKey:@"type" equalTo:@"first"];
-        queryTopic.skip = (int)random % 25;
+        queryTopic.skip = random2;
         queryTopic.limit = 1;
         
+        int random3 = arc4random() % 16;
         PFQuery *queryOpener = [PFQuery queryWithClassName:@"Opener"];
         [queryOpener whereKey:@"scene" equalTo:@"date"];
-        queryOpener.skip = (int)random % 15;
+        queryOpener.skip = random3;
         queryOpener.limit = 1;
         
+        int random4 = arc4random() % 24;
         PFQuery *queryInteract = [PFQuery queryWithClassName:@"DateIdea"];
         [queryInteract whereKey:@"available" equalTo:[NSNumber numberWithBool:YES]];
-        queryInteract.skip = (int)random % 23;
+        queryInteract.skip = random4;
         queryInteract.limit = 1;
         
         [[[[MOUtility findAsync:queryTopic] continueWithSuccessBlock:^id(BFTask *task) {
@@ -146,13 +192,21 @@
             [(DateIdeaItem*)self.datasource[1] setDescription:[opener objectForKey:@"description"]];
             
             return [MOUtility findAsync:queryInteract];
-        }] continueWithSuccessBlock:^id(BFTask *task) {
+        }] continueWithExecutor:[BFExecutor mainThreadExecutor] withSuccessBlock:^id(BFTask *task) {
             NSArray *result = task.result;
             PFObject *interact = result[0];
             [(DateIdeaItem*)self.datasource[3] setContent:[interact objectForKey:@"idea"]];
             [(DateIdeaItem*)self.datasource[3] setDescription:[interact objectForKey:@"description"]];
             
             [self.tableView reloadData];
+            
+            
+            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                
+                self.tableView.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                
+            }];
             
             return nil;
         }];
@@ -161,6 +215,7 @@
     }
     
 }
+
 
 #pragma mark - tableview delegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
