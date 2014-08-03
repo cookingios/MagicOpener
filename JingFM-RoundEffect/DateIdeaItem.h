@@ -15,6 +15,6 @@
 @property (strong,nonatomic) NSString *content;
 @property (strong,nonatomic) NSString *description;
 
--(instancetype)initWithTitle:(NSString*)title imageName:(NSString*)imageName;
+-(instancetype)initWithTitle:(NSString*)title imageName:(NSString*)imageName content:(NSString*)content;
 
 @end

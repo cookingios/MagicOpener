@@ -12,6 +12,8 @@
 #import "MOBusiness.h"
 #import "DateIdeaCell.h"
 #import "DateIdeaItem.h"
+#import "AutoCoding.h"
+#import <TOWebViewController/TOWebViewController.h>
 
 @interface DateIdeaViewController ()<DPRequestDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -42,18 +44,21 @@
 -(id)initWithCoder:(NSCoder *)aDecoder{
     
     self = [super initWithCoder:aDecoder];
+    
     if (self) {
         //Custom initialization
-        DateIdeaItem *place = [[DateIdeaItem alloc] initWithTitle:@"约会地点" imageName:@"date-icon-place"];
-        DateIdeaItem *opener = [[DateIdeaItem alloc] initWithTitle:@"开场白" imageName:@"date-icon-opener"];
-        DateIdeaItem *topic = [[DateIdeaItem alloc] initWithTitle:@"聊天话题" imageName:@"date-icon-topic"];
-        DateIdeaItem *goodbye = [[DateIdeaItem alloc] initWithTitle:@"互动点子" imageName:@"date-icon-interact"];
+        DateIdeaItem *place = [[DateIdeaItem alloc] initWithTitle:@"约会地点" imageName:@"date-icon-place" content:@"适合当前情感关系的约会地点"];
+        DateIdeaItem *opener = [[DateIdeaItem alloc] initWithTitle:@"开场白" imageName:@"date-icon-opener" content:@"见面的第一句话"];
+        DateIdeaItem *topic = [[DateIdeaItem alloc] initWithTitle:@"聊天话题" imageName:@"date-icon-topic" content:@"了解对方,不只是问题"];
+        DateIdeaItem *interact = [[DateIdeaItem alloc] initWithTitle:@"互动点子" imageName:@"date-icon-interact" content:@"约会过程中的互动建议"];
         
-        self.datasource = @[place,opener,topic,goodbye];
-        
+        self.datasource = @[place,opener,topic,interact];
+    
     }
     return self;
 }
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,6 +75,12 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [MobClick beginLogPageView:@"Opener"];
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -83,11 +94,33 @@
 
 - (IBAction)refreshDatePlan:(id)sender {
     
+    
     if (!self.currentGeoPoint) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法获取地理位置信息" message:@"请前往设置打开该选项" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         return [alert show];
     }
     
+    //友盟统计
+    NSString *type = @"";
+    switch (self.relationshipTypeSegment.selectedSegmentIndex) {
+        case 0:
+            type = @"初次见";
+            break;
+        case 1:
+            type = @"有点熟";
+            break;
+        case 2:
+            type = @"暧昧";
+            break;
+            
+        default:
+            type = @"初次见";
+            break;
+    }
+    NSDictionary *dict = @{@"type":type};
+    [MobClick event:@"GetDatePlan" attributes:dict];
+    
+    //动画
     [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
         self.tableView.alpha = 0.0;
@@ -95,6 +128,7 @@
         
     }];
     
+    //请求date plan
     NSString *latitude = [NSString stringWithFormat:@"%f",self.currentGeoPoint.latitude];
     NSString *longitude = [NSString stringWithFormat:@"%f",self.currentGeoPoint.longitude];
     
@@ -128,7 +162,33 @@
 //约会话题根据情感关系配置
 -(PFQuery*)queryTopicWithOptionIndex:(NSInteger)index{
     
-
+    int count = 0;
+    PFQuery *queryTopic = [PFQuery queryWithClassName:@"ChatTopic"];
+    switch (index) {
+        case 0:
+            [queryTopic whereKey:@"type" equalTo:@"first"];
+            count = 26;
+            break;
+        case 1:
+            [queryTopic whereKey:@"type" equalTo:@"friend"];
+            count = 21;
+            break;
+        case 2:
+            [queryTopic whereKey:@"type" equalTo:@"hot"];
+            count = 10;
+            break;
+            
+        default:
+            [queryTopic whereKey:@"type" equalTo:@"first"];
+            count = 26;
+            break;
+    }
+    int random = arc4random() % count;
+    queryTopic.skip = random;
+    queryTopic.limit = 1;
+    
+    return queryTopic;
+    
 }
 
 //约会互动根据情感关系配置
@@ -156,25 +216,21 @@
         [(DateIdeaItem*)self.datasource[0] setContent:self.currentBusiness.name];
         [(DateIdeaItem*)self.datasource[0] setDescription:self.currentBusiness.address];
         
-        int random2 = arc4random() % 26;
-        PFQuery *queryTopic = [PFQuery queryWithClassName:@"ChatTopic"];
-        [queryTopic whereKey:@"type" equalTo:@"first"];
-        queryTopic.skip = random2;
-        queryTopic.limit = 1;
-        
+        //开场白
         int random3 = arc4random() % 16;
         PFQuery *queryOpener = [PFQuery queryWithClassName:@"Opener"];
         [queryOpener whereKey:@"scene" equalTo:@"date"];
         queryOpener.skip = random3;
         queryOpener.limit = 1;
         
+        //互动点子
         int random4 = arc4random() % 24;
         PFQuery *queryInteract = [PFQuery queryWithClassName:@"DateIdea"];
         [queryInteract whereKey:@"available" equalTo:[NSNumber numberWithBool:YES]];
         queryInteract.skip = random4;
         queryInteract.limit = 1;
         
-        [[[[MOUtility findAsync:queryTopic] continueWithSuccessBlock:^id(BFTask *task) {
+        [[[[MOUtility findAsync:[self queryTopicWithOptionIndex:self.relationshipTypeSegment.selectedSegmentIndex]] continueWithSuccessBlock:^id(BFTask *task) {
             
             NSArray *result = task.result;
             PFObject *topic = result[0];
@@ -217,7 +273,7 @@
 }
 
 
-#pragma mark - tableview delegate
+#pragma mark - tableview datasource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return [self.datasource count];
@@ -238,12 +294,28 @@
     cell.contentLable.text = [self.datasource[indexPath.row] content];
     cell.descriptionLabel.text = [self.datasource[indexPath.row] description];
     cell.iconImageView.image = [UIImage imageNamed:[self.datasource[indexPath.row] imageName]];
+    if (indexPath.row == 0 && [self.datasource[0] description]) {
+        cell.moreButton.hidden = NO;
+    }
     
     return cell;
 
     
 }
 
+#pragma mark - tableview delegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSURL *url = [NSURL URLWithString:self.currentBusiness.url];
+    
+    if (indexPath.row == 0 &&[self.datasource[0] description]) {
+        TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:url];
+
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:webViewController] animated:YES completion:nil];
+        
+    }
+    
+}
 
 
 @end

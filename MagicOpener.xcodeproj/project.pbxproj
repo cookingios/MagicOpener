@@ -45,6 +45,7 @@
 		BD382FDB1945F4D100ED1524 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD382FD91945F4D100ED1524 /* libMobClickLibrary.a */; };
 		BD382FDD1945F4F900ED1524 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD382FDC1945F4F900ED1524 /* libz.dylib */; };
 		BD38C00517A6B3B5007DA2DA /* MultiChoiceLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD38C00417A6B3B5007DA2DA /* MultiChoiceLoginViewController.m */; };
+		BD413956198DC9A70003839E /* AutoCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BD413955198DC9A70003839E /* AutoCoding.m */; };
 		BD5ABE9718ED9F1700ED6046 /* MessageMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5ABE9618ED9F1700ED6046 /* MessageMasterViewController.m */; };
 		BD5ABE9A18ED9F3100ED6046 /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5ABE9918ED9F3100ED6046 /* MessageCell.m */; };
 		BD65C2D318B8D22700AEE72C /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD65C2D018B8D22700AEE72C /* RootViewController.m */; };
@@ -177,6 +178,8 @@
 		BD382FDC1945F4F900ED1524 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BD38C00317A6B3B5007DA2DA /* MultiChoiceLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiChoiceLoginViewController.h; sourceTree = "<group>"; };
 		BD38C00417A6B3B5007DA2DA /* MultiChoiceLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiChoiceLoginViewController.m; sourceTree = "<group>"; };
+		BD413954198DC9A70003839E /* AutoCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoCoding.h; sourceTree = "<group>"; };
+		BD413955198DC9A70003839E /* AutoCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoCoding.m; sourceTree = "<group>"; };
 		BD5ABE9518ED9F1700ED6046 /* MessageMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMasterViewController.h; sourceTree = "<group>"; };
 		BD5ABE9618ED9F1700ED6046 /* MessageMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMasterViewController.m; sourceTree = "<group>"; };
 		BD5ABE9818ED9F3100ED6046 /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
@@ -421,6 +424,7 @@
 		0DB386EE17605D8400D07C57 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BD413957198DC9AC0003839E /* AutoCoding */,
 				BDB4E6291988F02400960BAB /* DingPingAPI */,
 				BD382FD81945F4C100ED1524 /* UMeng */,
 				BDB7FF641939877C00C1C6ED /* TQStarRating */,
@@ -500,6 +504,15 @@
 				BD382FDA1945F4D100ED1524 /* MobClick.h */,
 			);
 			name = UMeng;
+			sourceTree = "<group>";
+		};
+		BD413957198DC9AC0003839E /* AutoCoding */ = {
+			isa = PBXGroup;
+			children = (
+				BD413954198DC9A70003839E /* AutoCoding.h */,
+				BD413955198DC9A70003839E /* AutoCoding.m */,
+			);
+			name = AutoCoding;
 			sourceTree = "<group>";
 		};
 		BD5ABE9418ED9EED00ED6046 /* Message */ = {
@@ -970,6 +983,7 @@
 				BDB4E6281988F01D00960BAB /* DPRequest.m in Sources */,
 				BD84960818BD016000F7DD97 /* FaceppClient.m in Sources */,
 				BDE4540E193096B600F6531B /* NSDictionary_DeepMutableCopy.m in Sources */,
+				BD413956198DC9A70003839E /* AutoCoding.m in Sources */,
 				BD69BD071983463B00535B3E /* MenuHeaderView.m in Sources */,
 				BDE454121930978700F6531B /* ArticleDetailViewController.m in Sources */,
 				BDB7FF701939877C00C1C6ED /* TQStarRatingView.m in Sources */,
