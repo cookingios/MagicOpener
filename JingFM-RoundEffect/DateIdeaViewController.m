@@ -144,13 +144,13 @@
     NSString *params = nil;
     switch (index) {
         case 0:
-            params = @"category=面包甜点,咖啡,公园&limit=40&sort=1";
+            params = @"category=面包甜点,咖啡,公园&limit=40&sort=9&radius=5000";
             break;
         case 1:
-            params = @"category=美食,电影院,运动健身&limit=40&sort=1";
+            params = @"category=美食,电影院,运动健身&limit=40&sort=2&radius=5000";
             break;
         case 2:
-            params = @"category=酒店,KTV,足疗按摩,酒吧&limit=40&sort=1";
+            params = @"category=酒店,KTV,足疗按摩,酒吧&limit=40&sort=2&radius=5000";
             break;
             
         default:
