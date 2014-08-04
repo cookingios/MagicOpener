@@ -296,6 +296,7 @@
     cell.iconImageView.image = [UIImage imageNamed:[self.datasource[indexPath.row] imageName]];
     if (indexPath.row == 0 && [self.datasource[0] description]) {
         cell.moreButton.hidden = NO;
+        cell.contentLable.textColor = [UIColor redColor];
     }
     
     return cell;
