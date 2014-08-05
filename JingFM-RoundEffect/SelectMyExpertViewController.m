@@ -74,21 +74,34 @@
 }
 
 - (IBAction)reviewEditorPicks:(id)sender {
-    //获取当前expert
-    self.currentExpert = self.experts[[sender tag]];
-    
+
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
     [self.hud show:YES];
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:25.0f target:self selector:@selector(handleHudTimeout) userInfo:nil repeats:NO];
     
-    PFUser *toUser = [PFQuery getUserObjectWithId:self.currentExpert.userId];
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Message"];
-    [query whereKey:@"expert" equalTo:toUser];
-    [query whereKey:@"isEditorsPicked" equalTo:[NSNumber numberWithBool:YES]];
-    query.limit = 5;
+    //PFUser *toUser = [PFQuery getUserObjectWithId:self.currentExpert.userId];
+    //获取当前expert
+    self.currentExpert = self.experts[[sender tag]];
+    [[[MOUtility findAsyncUser:self.currentExpert.userId] continueWithSuccessBlock:^id(BFTask *task) {
+        PFUser *toUser = task.result;
+        PFQuery *query = [PFQuery queryWithClassName:@"Message"];
+        [query whereKey:@"expert" equalTo:toUser];
+        [query whereKey:@"isEditorsPicked" equalTo:[NSNumber numberWithBool:YES]];
+        query.limit = 5;
+        
+        return [MOUtility findAsync:query];
+    }] continueWithExecutor:[BFExecutor mainThreadExecutor] withSuccessBlock:^id(BFTask *task) {
+        [timer invalidate];
+        [self.hud removeFromSuperview];
+        self.editorsPicks = [NSArray arrayWithArray:task.result];
+        [self performSegueWithIdentifier:@"EditorsPicksSegue" sender:self];
+        
+        
+        return nil;
+    }];
+    /*
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && [objects count]) {
             [timer invalidate];
@@ -98,7 +111,7 @@
         }
         
     }];
-    
+    */
     
     
 }

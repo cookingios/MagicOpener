@@ -239,4 +239,22 @@
     return task.task;
 }
 
++ (BFTask *)findAsyncUser:(NSString *)userId{
+    BFTaskCompletionSource *task = [BFTaskCompletionSource taskCompletionSource];
+    __block NSError *error = nil;
+
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        PFUser *user = [PFQuery getUserObjectWithId:userId error:&error];
+        
+        if (!error) {
+            [task setResult:user];
+        }else{
+             [task setError:error];
+        }
+    });
+    
+    return task.task;
+}
+
+
 @end

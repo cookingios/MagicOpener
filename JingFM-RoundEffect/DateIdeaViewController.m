@@ -310,12 +310,14 @@
     NSURL *url = [NSURL URLWithString:self.currentBusiness.url];
     
     if (indexPath.row == 0 &&[self.datasource[0] description]) {
+        NSDictionary *dict = @{@"business":self.currentBusiness.name};
+        [MobClick event:@"GetMoreBusinessInfo" attributes:dict];
+        
         TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:url];
-        
-            NSDictionary *dict = @{@"business":self.currentBusiness.name};
-            [MobClick event:@"GetMoreBusinessInfo" attributes:dict];
-        
-            [self.navigationController pushViewController:webViewController animated:YES];
+        webViewController.showUrlWhileLoading = NO;
+        webViewController.showPageTitles = NO;
+        webViewController.hideWebViewBoundaries = YES;
+        [self.navigationController pushViewController:webViewController animated:YES];
         
     }
     

@@ -38,4 +38,7 @@
 //网络连接
 +(BFTask*) fetchJsonWithURL:(NSURL*)url;
 
+//异步获取用户
++ (BFTask *)findAsyncUser:(NSString *)userId;
+
 @end
