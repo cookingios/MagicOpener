@@ -87,6 +87,7 @@
     
     PFQuery *query = [PFQuery queryWithClassName:@"Message"];
     [query whereKey:@"expert" equalTo:toUser];
+    [query whereKey:@"isEditorsPicked" equalTo:[NSNumber numberWithBool:YES]];
     query.limit = 5;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error && [objects count]) {
