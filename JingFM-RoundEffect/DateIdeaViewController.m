@@ -77,7 +77,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    [MobClick beginLogPageView:@"Opener"];
+    [MobClick beginLogPageView:@"DatePlan"];
     
 }
 
@@ -311,8 +311,11 @@
     
     if (indexPath.row == 0 &&[self.datasource[0] description]) {
         TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:url];
-
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:webViewController] animated:YES completion:nil];
+        
+            NSDictionary *dict = @{@"business":self.currentBusiness.name};
+            [MobClick event:@"GetMoreBusinessInfo" attributes:dict];
+        
+            [self.navigationController pushViewController:webViewController animated:YES];
         
     }
     

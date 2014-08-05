@@ -40,6 +40,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [MobClick beginLogPageView:@"SelectQuestionType"];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

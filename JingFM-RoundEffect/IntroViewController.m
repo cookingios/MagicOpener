@@ -47,6 +47,7 @@ static NSString * const sampleDesc4 = @"Nam libero tempore, cum soluta nobis est
    // }
     
     [self showIntroWithCrossDissolve];
+    [MobClick beginLogPageView:@"WhyUseThisApp"];
 }
 - (void)viewWillDisappear:(BOOL)animated{
    // self.navigationController.navigationBarHidden = NO;

@@ -53,7 +53,6 @@
     
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"SubmitQuestionType1"];
-    //NSLog(@"toUser is %@",[self.toUser description]);
     [TSMessage setDefaultViewController:self.navigationController];
 }
 

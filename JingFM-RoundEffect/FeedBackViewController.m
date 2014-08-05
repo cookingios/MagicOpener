@@ -35,6 +35,10 @@
     // Do any additional setup after loading the view.
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [MobClick beginLogPageView:@"FeedBack"];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

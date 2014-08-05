@@ -47,6 +47,10 @@
     self.descriptionLabel.text = [NSString stringWithFormat:@"  %@的往期精选问答",self.expert.name];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [MobClick beginLogPageView:@"EditorsPicks"];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
