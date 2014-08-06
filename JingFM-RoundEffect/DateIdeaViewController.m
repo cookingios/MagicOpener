@@ -14,6 +14,7 @@
 #import "DateIdeaItem.h"
 #import "AutoCoding.h"
 #import <TOWebViewController/TOWebViewController.h>
+#import <pop/POP.h>
 
 @interface DateIdeaViewController ()<DPRequestDelegate,UITableViewDataSource,UITableViewDelegate>
 
@@ -23,6 +24,7 @@
 @property (strong,nonatomic) PFGeoPoint *currentGeoPoint;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *relationshipTypeSegment;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *refreshButton;
 
 - (IBAction)showMenu:(id)sender;
 - (IBAction)refreshDatePlan:(id)sender;
@@ -53,7 +55,7 @@
         DateIdeaItem *interact = [[DateIdeaItem alloc] initWithTitle:@"互动点子" imageName:@"date-icon-interact" content:@"约会过程中的互动建议"];
         
         self.datasource = @[place,opener,topic,interact];
-    
+        
     }
     return self;
 }
@@ -78,6 +80,12 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [MobClick beginLogPageView:@"DatePlan"];
+    [self.refreshButton addTarget:self action:@selector(scaleToSmall)
+                 forControlEvents:UIControlEventTouchDown | UIControlEventTouchDragEnter];
+    [self.refreshButton addTarget:self action:@selector(scaleAnimation)
+                 forControlEvents:UIControlEventTouchUpInside];
+    [self.refreshButton addTarget:self action:@selector(scaleToDefault)
+                 forControlEvents:UIControlEventTouchDragExit];
     
 }
 
@@ -87,13 +95,36 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)scaleToSmall
+{
+    POPBasicAnimation *scaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(0.95f, 0.95f)];
+    [self.refreshButton.layer pop_addAnimation:scaleAnimation forKey:@"layerScaleSmallAnimation"];
+}
+
+- (void)scaleAnimation
+{
+    POPSpringAnimation *scaleAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.velocity = [NSValue valueWithCGSize:CGSizeMake(3.f, 3.f)];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.f, 1.f)];
+    scaleAnimation.springBounciness = 18.0f;
+    [self.refreshButton.layer pop_addAnimation:scaleAnimation forKey:@"layerScaleSpringAnimation"];
+}
+
+- (void)scaleToDefault
+{
+    POPBasicAnimation *scaleAnimation = [POPBasicAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
+    scaleAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.f, 1.f)];
+    [self.refreshButton.layer pop_addAnimation:scaleAnimation forKey:@"layerScaleDefaultAnimation"];
+}
+
+
 - (IBAction)showMenu:(id)sender {
     
     [self.sideMenuViewController presentMenuViewController];
 }
 
 - (IBAction)refreshDatePlan:(id)sender {
-    
     
     if (!self.currentGeoPoint) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法获取地理位置信息" message:@"请前往设置打开该选项" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];

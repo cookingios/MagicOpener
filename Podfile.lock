@@ -47,6 +47,7 @@ PODS:
   - MSWeakTimer (1.1.0)
   - Parse-iOS-SDK (1.2.19):
     - Facebook-iOS-SDK (~> 3.7)
+  - pop (1.0.6)
   - ReactiveCocoa (2.3.1):
     - ReactiveCocoa/UI
   - ReactiveCocoa/Core (2.3.1):
@@ -75,6 +76,7 @@ DEPENDENCIES:
   - MBProgressHUD
   - MRProgress (~> 0.3)
   - Parse-iOS-SDK
+  - pop
   - ReactiveCocoa
   - RESideMenu (~> 3.4)
   - RPFloatingPlaceholders
@@ -97,6 +99,7 @@ SPEC CHECKSUMS:
   MRProgress: 0f0a200c2c211d2dfb83ac31aa2c117dca07db57
   MSWeakTimer: 6bd071c058fd49daa62013e4ae70caf61d0f2dc2
   Parse-iOS-SDK: 5e1f7e649a02f1cc19e73cc95bd43d7778848314
+  pop: e518794da38942c05255eb64b36d894e70cb4f00
   ReactiveCocoa: dca75777b9d18990c8714a3a6f2149f29b4d1462
   RESideMenu: a583194f1091b0222a1535864de04227ff497618
   RPFloatingPlaceholders: 33b37405789f61be4c62aa6103c5c6e54bae5a63

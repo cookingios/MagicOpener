@@ -1431,6 +1431,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="refreshButton" destination="qlQ-Sc-RLm" id="SUv-bN-aPK"/>
                         <outlet property="relationshipTypeSegment" destination="qZs-yO-TP5" id="kLD-yg-Iak"/>
                         <outlet property="tableView" destination="RXL-Ts-ULm" id="Rm7-py-Xzw"/>
                     </connections>
