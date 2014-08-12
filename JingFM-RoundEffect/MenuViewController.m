@@ -136,6 +136,10 @@
                 navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"DateIdeaViewController"]];
                 [self.sideMenuViewController hideMenuViewController];
                 break;
+            case 2:
+                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"TestArticle"]];
+                [self.sideMenuViewController hideMenuViewController];
+                break;
              
             
             default:
