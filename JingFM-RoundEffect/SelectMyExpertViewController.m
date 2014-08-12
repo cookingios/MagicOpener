@@ -41,7 +41,7 @@
     
     MOExpert *wenlin = [[MOExpert alloc]initWithUserId:@"zlUNHVRCEX" name:@"张sir" avatar:[UIImage imageNamed:@"wenlin"] description:@"清新口味,卖萌常客"];
      MOExpert *neo = [[MOExpert alloc]initWithUserId:@"ZTLhLSzDf2"  name:@"尼奥" avatar:[UIImage imageNamed:@"neo"] description:@"理性调情,感性吸引"];
-     MOExpert *chuan = [[MOExpert alloc]initWithUserId:@"DrIepaI8DF"   name:@"川川" avatar:[UIImage imageNamed:@"hi"] description:@"女性的视角,解读女性"];
+     MOExpert *chuan = [[MOExpert alloc]initWithUserId:@"DrIepaI8DF" name:@"川川" avatar:[UIImage imageNamed:@"hi"] description:@"女性的视角,解读女性"];
     
     self.experts = @[wenlin,neo,chuan];
 
@@ -134,6 +134,7 @@
     id dvc = segue.destinationViewController;
     if ([segue.identifier isEqualToString:@"SelectQuestionTypeSegue"]) {
         [dvc setValue:self.toUserId forKey:@"toUserId"];
+        
     } else if ([segue.identifier isEqualToString:@"EditorsPicksSegue"]){
         [dvc setValue:self.currentExpert forKey:@"expert"];
         [dvc setValue:self.editorsPicks forKey:@"dataSource"];
