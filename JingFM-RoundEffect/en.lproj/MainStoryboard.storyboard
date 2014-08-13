@@ -1019,7 +1019,7 @@
             </objects>
             <point key="canvasLocation" x="-4594" y="-3334"/>
         </scene>
-        <!--Article Detail View Controller-->
+        <!--Article Detail View Controller - 性情专栏-->
         <scene sceneID="IUj-Vy-4Gc">
             <objects>
                 <viewController storyboardIdentifier="TestArticle" id="yy3-2k-WuY" customClass="ArticleDetailViewController" sceneMemberID="viewController">
@@ -1035,12 +1035,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ULa-px-lnl">
+                    <navigationItem key="navigationItem" title="性情专栏" id="ULa-px-lnl">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="yLY-FA-Tjo">
                             <connections>
                                 <action selector="showMenu:" destination="yy3-2k-WuY" id="Kta-96-EAy"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="分享" id="Cfg-dO-ViC"/>
                     </navigationItem>
                     <connections>
                         <outlet property="htmlWebView" destination="yi6-06-QEP" id="r6s-Ix-Bsj"/>

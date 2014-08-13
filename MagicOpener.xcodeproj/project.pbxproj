@@ -424,6 +424,7 @@
 		0DB386EE17605D8400D07C57 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BD559353199B689700100EB6 /* ShareSDK */,
 				BD413957198DC9AC0003839E /* AutoCoding */,
 				BDB4E6291988F02400960BAB /* DingPingAPI */,
 				BD382FD81945F4C100ED1524 /* UMeng */,
@@ -513,6 +514,13 @@
 				BD413955198DC9A70003839E /* AutoCoding.m */,
 			);
 			name = AutoCoding;
+			sourceTree = "<group>";
+		};
+		BD559353199B689700100EB6 /* ShareSDK */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ShareSDK;
 			sourceTree = "<group>";
 		};
 		BD5ABE9418ED9EED00ED6046 /* Message */ = {
@@ -877,6 +885,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = 0DB386DB17605D8400D07C57;
 			productRefGroup = 0DB386E517605D8400D07C57 /* Products */;
@@ -1132,6 +1141,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 477C6A20407F41798333F1D7 /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: zhang wenlin (2E3KHHX4C5)";
@@ -1140,6 +1150,21 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/Comment",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/Connection",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/Core",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/UI",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/Comment",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Connection",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Core",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/GooglePlusSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/Pinterest.embeddedframework",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/QQConnectSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/RenRenSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JingFM-RoundEffect/MagicOpener-Prefix.pch";
@@ -1151,11 +1176,21 @@
 					"$(SRCROOT)/JingFM-RoundEffect/libWeiboSDK",
 					"$(PROJECT_DIR)/JingFM-RoundEffect/FaceppSDK",
 					"$(PROJECT_DIR)/JingFM-RoundEffect",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/UMSocial_Sdk_4.0",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/Extend/WeChatSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/Extend/SinaWeiboSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/SinaWeiboSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/TencentWeiboSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/WeChatSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/YiXinSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "约会助手";
-				PROVISIONING_PROFILE = "27B70BC9-12E9-4394-8E1E-5F0639293A95";
+				PROVISIONING_PROFILE = "329E1B84-1790-4B87-9872-A250D4D32AF2";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1164,6 +1199,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 477C6A20407F41798333F1D7 /* Pods.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: zhang wenlin (ZHB4WA8342)";
@@ -1172,6 +1208,21 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/Comment",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/Connection",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/Core",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/UI",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/Comment",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Connection",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Core",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/GooglePlusSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/Pinterest.embeddedframework",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/QQConnectSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/RenRenSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/UI",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JingFM-RoundEffect/MagicOpener-Prefix.pch";
@@ -1183,11 +1234,21 @@
 					"$(SRCROOT)/JingFM-RoundEffect/libWeiboSDK",
 					"$(PROJECT_DIR)/JingFM-RoundEffect/FaceppSDK",
 					"$(PROJECT_DIR)/JingFM-RoundEffect",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/UMSocial_Sdk_4.0",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/UMSocial_Sdk_Extra_Frameworks/Wechat",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/Extend/WeChatSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/ShareSDK-iOS-v2.9.2/ShareSDK/Extend/SinaWeiboSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/SinaWeiboSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/TencentWeiboSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/WeChatSDK",
+					"$(PROJECT_DIR)/JingFM-RoundEffect/v2.9.2/ShareSDK/Extend/YiXinSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "约会助手";
 				PROVISIONING_PROFILE = "DB2C6B48-A48F-407F-9B7F-EA9451EBEDBB";
 				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
