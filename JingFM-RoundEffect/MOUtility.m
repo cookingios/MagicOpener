@@ -13,6 +13,10 @@
 
 + (NSString *)stringFromDate:(NSDate *)date{
     
+    //NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    //NSInteger interval = [zone secondsFromGMTForDate: date];
+    //NSDate *localeDate = [date dateByAddingTimeInterval: interval];
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
     //zzz表示时区，zzz可以删除，这样返回的日期字符将不包含时区信息。
