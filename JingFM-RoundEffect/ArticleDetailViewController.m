@@ -8,17 +8,15 @@
 
 #import "ArticleDetailViewController.h"
 #import "ICUTemplateMatcher.h"
-#import <RESideMenu/RESideMenu.h>
 
 @interface ArticleDetailViewController ()
 
 @property (strong,nonatomic) NSString *htmlContent;
 @property (weak, nonatomic) IBOutlet UIWebView *htmlWebView;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 
-- (IBAction)showMenu:(id)sender;
+
+
 
 @end
 
@@ -38,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //[self configWebView];
-    [self getHtmlFromParse];
+    [self.htmlWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.htmlContent]]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,11 +45,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-- (IBAction)showMenu:(id)sender {
-    
-    [self.sideMenuViewController presentMenuViewController];
-}
 
 - (void)getHtmlFromParse{
     
@@ -62,7 +55,6 @@
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!error) {
             PFFile *file = [object objectForKey:@"html"];
-            self.dateLabel.text =[NSString stringWithFormat:@"%@ 发布", [MOUtility stringFromDate:object.updatedAt]];
             [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 self.htmlContent =[[NSString alloc] initWithData:data  encoding:NSUTF8StringEncoding];
                 NSLog(@"html is %@",self.htmlContent);
@@ -104,21 +96,6 @@
     [self.htmlWebView loadHTMLString:html baseURL:[NSURL fileURLWithPath:baseURL]];
     
     
-}
-
-
--(void)webViewDidFinishLoad:(UIWebView *)webView{
-    
-    NSString *height_str= [webView stringByEvaluatingJavaScriptFromString: @"document.body.offsetHeight"];
-    int height = [height_str intValue];
-    webView.frame = CGRectMake(0,self.dateLabel.frame.size.height,320,height);
-    NSLog(@"height: %@", [webView stringByEvaluatingJavaScriptFromString: @"document.body.offsetHeight"]);
-    
-    self.scrollView.contentSize = CGSizeMake(320, height+self.dateLabel.frame.size.height);
-    //[self.scrollView setNeedsLayout];
-    [self.scrollView setNeedsDisplay];
-    
-    self.dateLabel.hidden = NO;
 }
 
 

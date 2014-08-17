@@ -168,6 +168,9 @@
 		BDB7FF7A19398DC500C1C6ED /* foregroundStar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB7FF7919398DC500C1C6ED /* foregroundStar@2x.png */; };
 		BDB80EED17B24FE50055DF16 /* copy.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB80EEB17B24FE50055DF16 /* copy.png */; };
 		BDB80EEE17B24FE50055DF16 /* copy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BDB80EEC17B24FE50055DF16 /* copy@2x.png */; };
+		BDB82F4119A068BE00DF71A8 /* ArticleMasterViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB82F4019A068BE00DF71A8 /* ArticleMasterViewControllerTableViewController.m */; };
+		BDB82F4419A079EF00DF71A8 /* ArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB82F4319A079EF00DF71A8 /* ArticleCell.m */; };
+		BDB82F4719A0DDDA00DF71A8 /* LoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB82F4619A0DDDA00DF71A8 /* LoadMoreCell.m */; };
 		BDB9C23A19825C000000F3F5 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB9C23919825C000000F3F5 /* HistoryViewController.m */; };
 		BDC7723B17B2713300815AC7 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7723917B2713300815AC7 /* 37x-Checkmark.png */; };
 		BDC7723C17B2713300815AC7 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BDC7723A17B2713300815AC7 /* 37x-Checkmark@2x.png */; };
@@ -426,6 +429,12 @@
 		BDB7FF7919398DC500C1C6ED /* foregroundStar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "foregroundStar@2x.png"; sourceTree = "<group>"; };
 		BDB80EEB17B24FE50055DF16 /* copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = copy.png; sourceTree = "<group>"; };
 		BDB80EEC17B24FE50055DF16 /* copy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copy@2x.png"; sourceTree = "<group>"; };
+		BDB82F3F19A068BE00DF71A8 /* ArticleMasterViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleMasterViewControllerTableViewController.h; sourceTree = "<group>"; };
+		BDB82F4019A068BE00DF71A8 /* ArticleMasterViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleMasterViewControllerTableViewController.m; sourceTree = "<group>"; };
+		BDB82F4219A079EF00DF71A8 /* ArticleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleCell.h; sourceTree = "<group>"; };
+		BDB82F4319A079EF00DF71A8 /* ArticleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleCell.m; sourceTree = "<group>"; };
+		BDB82F4519A0DDDA00DF71A8 /* LoadMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreCell.h; sourceTree = "<group>"; };
+		BDB82F4619A0DDDA00DF71A8 /* LoadMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreCell.m; sourceTree = "<group>"; };
 		BDB9C23819825C000000F3F5 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		BDB9C23919825C000000F3F5 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		BDC7723917B2713300815AC7 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
@@ -806,6 +815,8 @@
 		BD65C2D718B8D29500AEE72C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BDB82F4519A0DDDA00DF71A8 /* LoadMoreCell.h */,
+				BDB82F4619A0DDDA00DF71A8 /* LoadMoreCell.m */,
 				BDE454171934E94000F6531B /* ExpertMessageTableViewCell.h */,
 				BDE454181934E94000F6531B /* ExpertMessageTableViewCell.m */,
 				BD5ABE9818ED9F3100ED6046 /* MessageCell.h */,
@@ -818,6 +829,8 @@
 				BD69BD061983463B00535B3E /* MenuHeaderView.m */,
 				BDB4CE1E198B315200707AC3 /* DateIdeaCell.h */,
 				BDB4CE1F198B315200707AC3 /* DateIdeaCell.m */,
+				BDB82F4219A079EF00DF71A8 /* ArticleCell.h */,
+				BDB82F4319A079EF00DF71A8 /* ArticleCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1232,6 +1245,8 @@
 			children = (
 				BDE454101930978700F6531B /* ArticleDetailViewController.h */,
 				BDE454111930978700F6531B /* ArticleDetailViewController.m */,
+				BDB82F3F19A068BE00DF71A8 /* ArticleMasterViewControllerTableViewController.h */,
+				BDB82F4019A068BE00DF71A8 /* ArticleMasterViewControllerTableViewController.m */,
 			);
 			name = Article;
 			sourceTree = "<group>";
@@ -1410,6 +1425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD84961918BD016000F7DD97 /* NSDictionary_JSONExtensions.m in Sources */,
+				BDB82F4119A068BE00DF71A8 /* ArticleMasterViewControllerTableViewController.m in Sources */,
 				BDB4E6281988F01D00960BAB /* DPRequest.m in Sources */,
 				BD84960818BD016000F7DD97 /* FaceppClient.m in Sources */,
 				BDE4540E193096B600F6531B /* NSDictionary_DeepMutableCopy.m in Sources */,
@@ -1429,6 +1445,7 @@
 				BD382FD71942193F00ED1524 /* ExpertMessageDetailTableViewController.m in Sources */,
 				BD84961718BD016000F7DD97 /* CJSONSerializedData.m in Sources */,
 				BDB0A89818D4AF0A0021BCFE /* SubmitViewController.m in Sources */,
+				BDB82F4719A0DDDA00DF71A8 /* LoadMoreCell.m in Sources */,
 				0DB386F417605D8400D07C57 /* main.m in Sources */,
 				BD84960A18BD016000F7DD97 /* FaceppFaceset.m in Sources */,
 				BDB6C5B519879F50004F5E47 /* DateIdeaViewController.m in Sources */,
@@ -1470,6 +1487,7 @@
 				BD65C2D318B8D22700AEE72C /* RootViewController.m in Sources */,
 				BD84961B18BD016000F7DD97 /* CJSONScanner.m in Sources */,
 				BD1B37B31989E8270073A7DD /* PlanTableViewController.m in Sources */,
+				BDB82F4419A079EF00DF71A8 /* ArticleCell.m in Sources */,
 				BD24E9E2194EA64E006C781C /* AdvertisementViewController.m in Sources */,
 				BD84960B18BD016000F7DD97 /* FaceppGroup.m in Sources */,
 				BD05EF3C17A1736100BC4E2F /* LoginViewController.m in Sources */,

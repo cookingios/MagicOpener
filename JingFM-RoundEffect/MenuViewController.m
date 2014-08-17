@@ -137,7 +137,7 @@
                 [self.sideMenuViewController hideMenuViewController];
                 break;
             case 2:
-                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"TestArticle"]];
+                navigationController.viewControllers = @[[self.storyboard instantiateViewControllerWithIdentifier:@"ArticleMasterView"]];
                 [self.sideMenuViewController hideMenuViewController];
                 break;
              
@@ -195,7 +195,7 @@
     
     switch (section) {
         case 0:
-            view.titleLabel.text = @"工具";
+            view.titleLabel.text = @"发现";
             break;
         case 1:
             view.titleLabel.text = @"求助";
@@ -214,7 +214,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 60.0;
+    return 55.0;
 }
 
 - (void)presentMessageViewController{
