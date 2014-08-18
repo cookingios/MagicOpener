@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AGViewDelegate.h"
+#import "WXApi.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>
+    {
+        enum WXScene _scene;
+        AGViewDelegate *_viewDelegate;
+    }
+
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong,nonatomic) AGViewDelegate *viewDelegate;
 
 @end

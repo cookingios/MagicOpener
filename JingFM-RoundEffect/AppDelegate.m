@@ -8,9 +8,21 @@
 
 #import "AppDelegate.h"
 #import "FaceppAPI.h"
+#import <ShareSDK/ShareSDK.h>
 
 
 @implementation AppDelegate
+
+- (id)init
+{
+    if(self = [super init])
+    {
+        _scene = WXSceneSession;
+        _viewDelegate = [[AGViewDelegate alloc] init];
+    }
+    return self;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -51,11 +63,15 @@
     }
     NSLog(@"{\"oid\": \"%@\"}", deviceID);
     */
+    
     UIPageControl *pageControl = [UIPageControl appearance];
     pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
     pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
     pageControl.backgroundColor = [UIColor clearColor];
     
+    
+    [ShareSDK registerApp:@"2b28bf991610"];
+    [ShareSDK importWeChatClass:[WXApi class]];
     
     return YES;
 }
@@ -128,5 +144,17 @@
     
 }
 
+#pragma mark - wxapi 
+- (BOOL)application:(UIApplication *)application  handleOpenURL:(NSURL *)url
+{
+    return [ShareSDK handleOpenURL:url wxDelegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    
+    return [ShareSDK handleOpenURL:url sourceApplication:sourceApplication annotation:annotation wxDelegate:self];
+    
+}
 
 @end

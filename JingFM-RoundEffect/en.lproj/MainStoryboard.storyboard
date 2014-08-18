@@ -1039,7 +1039,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="文字" id="ULa-px-lnl">
-                        <barButtonItem key="rightBarButtonItem" title="分享" id="Cfg-dO-ViC"/>
+                        <barButtonItem key="rightBarButtonItem" title="分享" id="Cfg-dO-ViC">
+                            <connections>
+                                <action selector="shareArticle:" destination="yy3-2k-WuY" id="7Gm-yL-wrP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="htmlWebView" destination="yi6-06-QEP" id="r6s-Ix-Bsj"/>

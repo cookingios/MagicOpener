@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MGTemplateEngine.h"
+#import "AGViewDelegate.h"
+#import "AppDelegate.h"
 
-@interface ArticleDetailViewController : UIViewController<MGTemplateEngineDelegate,UIWebViewDelegate>
+@interface ArticleDetailViewController : UIViewController<MGTemplateEngineDelegate,UIWebViewDelegate,UIActionSheetDelegate>{
+    
+    
+    AppDelegate *_appDelegate;
+}
 
 @end

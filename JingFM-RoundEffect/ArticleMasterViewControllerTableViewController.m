@@ -120,6 +120,7 @@
     
     if ([segue.identifier isEqualToString:@"ArticleDetailSegue"]) {
         [dvc setValue:self.currentArticle[@"html"] forKey:@"htmlContent"];
+        [dvc setValue:self.currentArticle[@"title"] forKey:@"titleString"];
     }
 }
 
