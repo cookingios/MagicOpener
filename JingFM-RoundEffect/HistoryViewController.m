@@ -48,8 +48,13 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+    [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"EditorsPicks"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"EditorsPicks"];
 }
 - (void)didReceiveMemoryWarning
 {

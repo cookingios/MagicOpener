@@ -68,6 +68,20 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"Article"];
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"Article"];
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -99,6 +113,9 @@
         
         self.currentArticle = self.objects[indexPath.row];
         
+        NSDictionary *dict = @{@"title":self.currentArticle[@"title"]};
+        [MobClick event:@"DuplicateOpener" attributes:dict];
+
         [self performSegueWithIdentifier:@"ArticleDetailSegue" sender:self];
         
     }else{

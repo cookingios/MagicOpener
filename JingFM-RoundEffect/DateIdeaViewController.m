@@ -78,7 +78,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+    [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"DatePlan"];
     [self.refreshButton addTarget:self action:@selector(scaleToSmall)
                  forControlEvents:UIControlEventTouchDown | UIControlEventTouchDragEnter];
@@ -86,6 +86,13 @@
                  forControlEvents:UIControlEventTouchUpInside];
     [self.refreshButton addTarget:self action:@selector(scaleToDefault)
                  forControlEvents:UIControlEventTouchDragExit];
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"DatePlan"];
     
 }
 
